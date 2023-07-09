@@ -10,9 +10,9 @@ export default function Sidebar() {
           <Twitter fill="white" color='none' size={30} />
         </div>
         <Menu />
-        <div className='h-12 w-[80%] px-3 m-2 flex items-center justify-center bg-sky-500 rounded-full gap-5 transition ease-in-out hover:bg-sky-600 duration-200'>
+        <button className='h-12 w-[80%] px-3 m-2 flex items-center justify-center bg-sky-500 rounded-full gap-5 transition ease-in-out hover:bg-sky-600 duration-200'>
           <span className='text-white text-lg'>Tweet</span>
-        </div>
+        </button>
       </div>
       
       <ProfileButton />
