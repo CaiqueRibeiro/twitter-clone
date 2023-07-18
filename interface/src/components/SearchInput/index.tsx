@@ -14,8 +14,7 @@ export default function SearchInput() {
       flex
       gap-3
       focus-within:bg-transparent
-      focus-within:border-sky-700
-      focus-within:border"
+      focus-within:border-sky-700"
       >
         <Search className='text-zinc-400 h-5' />
         <input

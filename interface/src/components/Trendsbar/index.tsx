@@ -27,8 +27,8 @@ export default function Trendsbar() {
                 <strong>#PALxSAO</strong>
                 <span className="text-neutral-500 text-sm">4,5865 tweets</span>
               </div>
-              <button className="rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
-                <MoreHorizontalIcon className="text-white/[.4]" size={18} />
+              <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+                <MoreHorizontalIcon className="text-white/[.4] group-hover:text-sky-600" size={18} />
               </button>
             </div>
           </div>
@@ -40,8 +40,8 @@ export default function Trendsbar() {
                 <strong>#PALxSAO</strong>
                 <span className="text-neutral-500 text-sm">4,5865 tweets</span>
               </div>
-              <button className="rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
-                <MoreHorizontalIcon className="text-white/[.4]" size={18} />
+              <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+                <MoreHorizontalIcon className="text-white/[.4] group-hover:text-sky-600" size={18} />
               </button>
             </div>
           </div>
@@ -53,8 +53,8 @@ export default function Trendsbar() {
                 <strong>#PALxSAO</strong>
                 <span className="text-neutral-500 text-sm">4,5865 tweets</span>
               </div>
-              <button className="rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
-                <MoreHorizontalIcon className="text-white/[.4]" size={18} />
+              <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+                <MoreHorizontalIcon className="text-white/[.4] group-hover:text-sky-600" size={18} />
               </button>
             </div>
           </div>
@@ -66,8 +66,8 @@ export default function Trendsbar() {
                 <strong>#PALxSAO</strong>
                 <span className="text-neutral-500 text-sm">4,5865 tweets</span>
               </div>
-              <button className="rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
-                <MoreHorizontalIcon className="text-white/[.4]" size={18} />
+              <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+                <MoreHorizontalIcon className="text-white/[.4] group-hover:text-sky-600" size={18} />
               </button>
             </div>
           </div>
