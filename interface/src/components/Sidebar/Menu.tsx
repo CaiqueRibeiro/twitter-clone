@@ -1,4 +1,4 @@
-import { Twitter, Home, Search, Bell, Mail, Bookmark, ClipboardList, BadgeCheck, User2, MoreHorizontalIcon } from "lucide-react"
+import { Home, Search, Bell, Mail, Bookmark, ClipboardList, BadgeCheck, User2, MoreHorizontalIcon } from "lucide-react"
 
 export default function Menu() {
   return (
