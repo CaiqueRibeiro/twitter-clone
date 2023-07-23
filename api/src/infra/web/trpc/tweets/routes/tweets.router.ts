@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { router, publicProcedure } from '../trpc'
+import { router, publicProcedure } from '../../trpc'
 import { TweetsController } from '../controllers/tweets-controller'
 
 const tweetsController = new TweetsController()
