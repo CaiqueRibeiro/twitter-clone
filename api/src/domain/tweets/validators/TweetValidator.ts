@@ -11,14 +11,15 @@ class TweetValidator implements EntityValidator<Tweet> {
           id: yup.string().required('ID is required'),
           authorId: yup.string().required('Author ID is required'),
           content: yup.string().required('Content is required'),
-          timestamp: yup.date().required('Tweet date is required')
+          createdAt: yup.date().required('Tweet date is required'),
+          active: yup.bool()
         })
         .validateSync(
           {
             id: entity.id.value,
             authorId: entity.authorId.value,
             content: entity.content,
-            timestamp: entity.timestamp
+            createdAt: entity.createdAt
           },
           {
             abortEarly: false

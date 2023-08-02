@@ -11,18 +11,19 @@ datasource db {
 }
 
 model Tweet {
-  id               String      @id @default(uuid())
-  content          String
-  author_id        String
-  user             User        @relation(fields: [author_id], references: [id])
-  refered_tweet_id String?
-  refered_tweet    Tweet?      @relation("retweet", fields: [refered_tweet_id], references: [id])
-  retweets         Tweet[]     @relation("retweet")
-  created_at       DateTime    @default(now())
-  updated_at       DateTime    @updatedAt
-  feed_tweets      FeedTweet[]
-  Like             Like[]
-  Reply            Reply[]
+  id                String      @id @default(uuid())
+  content           String
+  active            Boolean
+  author_id         String
+  user              User        @relation(fields: [author_id], references: [id])
+  referred_tweet_id String?
+  referred_tweet    Tweet?      @relation("retweet", fields: [referred_tweet_id], references: [id])
+  retweets          Tweet[]     @relation("retweet")
+  created_at        DateTime    @default(now())
+  updated_at        DateTime    @updatedAt
+  feed_tweets       FeedTweet[]
+  Like              Like[]
+  Reply             Reply[]
 
   @@map("tweets")
 }
