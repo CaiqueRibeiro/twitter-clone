@@ -16,7 +16,7 @@ interface TweetProps {
 
 interface TweetConstructorProps {
   id?: TweetId | string;
-  authorId: UserId | string;
+  authorId: UserId;
   content: string;
   isActive?: boolean;
   createdAt?: string;
@@ -35,10 +35,7 @@ class Tweet extends AggregateRoot {
     new TweetId(props.id)
     : props.id ?? new TweetId()
 
-    this._props.authorId =
-    typeof props.authorId === 'string' ?
-    new UserId(props.authorId)
-    : props.authorId ?? new UserId()
+    this._props.authorId = props.authorId
 
     this._props.content = props.content
     this._props.createdAt = props.createdAt ? new Date(props.createdAt) : new Date()

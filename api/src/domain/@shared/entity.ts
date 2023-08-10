@@ -1,4 +1,5 @@
-import Notification from "./notification/notification"
+import Notification from "./notification/notification";
+
 
 export abstract class Entity {
   readonly _id: any
@@ -9,7 +10,6 @@ export abstract class Entity {
   }
 
   abstract toJSON(): any
-
   equals(obj: this) {
     if (obj === null || obj === undefined) {
       return false;
