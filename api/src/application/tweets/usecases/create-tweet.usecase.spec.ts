@@ -2,6 +2,7 @@ import { randomUUID } from "crypto"
 import { CreateTweetUseCase } from "./create-tweet.usecase"
 import { FakeTweetsRepository } from "@domain/tweets/repositories/fakes/fake-tweets-repository"
 import NotificationError from "@domain/@shared/notification/notification-error"
+import { InvalidUuidError } from "@domain/@shared/value-objects/uuid.vo"
 
 describe('CreateTweetUseCase unit tests', () => {
   let tweetsRepository: FakeTweetsRepository
@@ -26,6 +27,14 @@ describe('CreateTweetUseCase unit tests', () => {
 
     expect(createSpy).toHaveBeenCalledTimes(1)
     expect(tweets.length).toBe(1)
+  })
+
+  it('should not be able to create a tweet with an invalid userId format', async () => {
+      await expect(() => usecase.execute({
+        authorId: 'ABC',
+        content: 'PHP is for kornos',
+        timestamp: '2023-07-22T16:23:55.937Z'
+      })).rejects.toThrow(InvalidUuidError)
   })
 
   it('should not be able to create a tweet wihout a content', async () => {
