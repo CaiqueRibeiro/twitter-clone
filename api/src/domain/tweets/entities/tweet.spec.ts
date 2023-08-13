@@ -3,7 +3,7 @@ import { Tweet } from "./tweet"
 import { TweetId } from "../value-objects/tweet-id"
 
 
-describe('Tweet', () => {
+describe('Tweet unit tests', () => {
   it('should create a new Tweet', () => {
     const tweetProps = {
       authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),
@@ -34,16 +34,16 @@ describe('Tweet', () => {
   })
 
   it('should convert Tweet to JSON', () => {
-    const tweetProps = {
+    const arrange = {
       authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),
       content: 'Hello, world!',
     }
-    const tweet = Tweet.create(tweetProps)
+    const tweet = Tweet.create(arrange)
     const json = tweet.toJSON()
     expect(json).toEqual({
-      id: expect.any(TweetId),
-      authorId: tweetProps.authorId,
-      content: tweetProps.content,
+      id: expect.any(String),
+      authorId: arrange.authorId.value,
+      content: arrange.content,
       isActive: true,
       createdAt: expect.any(String),
       updatedAt: expect.any(String),

@@ -92,15 +92,15 @@ class Tweet extends AggregateRoot {
 
   toJSON() {
     const jsonResponse = {
-      id: this._props.id,
-      authorId: this._props.authorId,
+      id: this._props.id.value,
+      authorId: this._props.authorId.value,
       content: this._props.content,
       isActive: this._props.isActive,
       createdAt: this._props.createdAt.toISOString(),
       updatedAt: this._props.createdAt.toISOString(),
       referredTweet: this._props.referredTweet ? {
-        id: this._props.referredTweet._props.id,
-        authorId: this._props.referredTweet.authorId,
+        id: this._props.referredTweet._props.id.value,
+        authorId: this._props.referredTweet.authorId.value,
         content: this._props.referredTweet.content,
         isActive: this._props.referredTweet.isActive,
         createdAt: this._props.referredTweet.createdAt.toISOString(),
