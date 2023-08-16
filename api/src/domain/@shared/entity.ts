@@ -10,6 +10,7 @@ export abstract class Entity {
   }
 
   abstract toJSON(): any
+  
   equals(obj: this) {
     if (obj === null || obj === undefined) {
       return false;

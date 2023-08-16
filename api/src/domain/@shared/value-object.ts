@@ -1,10 +1,17 @@
 import isEqual from 'lodash/isEqual'
+import Notification from './notification/notification'
 
 export abstract class ValueObject<Value = any> {
   protected readonly _value: Value
+  protected _notification: Notification
 
   constructor(value: Value) {
     this._value = deepFreeze(value)
+    this._notification = new Notification()
+  }
+
+  get notification() {
+    return this._notification
   }
 
   get value(): Value {

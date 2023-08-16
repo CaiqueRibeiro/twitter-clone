@@ -1,6 +1,8 @@
+import NotificationError from "@domain/@shared/notification/notification-error";
 import { TweetId } from "../value-objects/tweet-id"
 import { ValueObject } from "@domain/@shared/value-object"
 import { UserId } from "@domain/users/value-objects/user-id"
+import LikeValidatorFactory from "../factories/validators/LikeValidatorFactory";
 
 
 interface LikeProps {
@@ -16,8 +18,6 @@ interface LikeConstructorProps {
 }
 
 class Like extends ValueObject<LikeProps> {
-  private _props: LikeProps = {} as LikeProps
-
   private constructor(props: LikeConstructorProps) {
     super({
       ...props,
@@ -25,23 +25,36 @@ class Like extends ValueObject<LikeProps> {
     })
   }
 
+  public static create(input: LikeConstructorProps): Like {
+    const like = new Like(input)
+    like.validate()
+    return like
+  }
+
+  public validate() {
+    LikeValidatorFactory.create().validate(this);
+    if (this._notification.hasErrors()) {
+      throw new NotificationError(this._notification.getErrors())
+    }
+  }
+
   get tweetId(): TweetId {
-    return this._props.tweetId
+    return this._value.tweetId
   }
 
   get userId(): UserId {
-    return this._props.userId
+    return this._value.userId
   }
 
   get timestamp(): Date {
-    return this._props.timestamp
+    return this._value.timestamp
   }
 
   toJSON() {
     return {
-      tweetId: this._props.tweetId.value,
-      userId: this._props.userId.value,
-      timestamp: this._props.timestamp.toISOString()
+      tweetId: this._value.tweetId.value,
+      userId: this._value.userId.value,
+      timestamp: this._value.timestamp.toISOString()
     }
   }
 }
