@@ -22,7 +22,6 @@ class LikeValidator implements EntityValidator<Like> {
             abortEarly: false
           });
     } catch (errors) {
-      console.log(errors)
       const e = errors as yup.ValidationError
       e.errors.forEach(error => {
         entity.notification.addError({

@@ -15,6 +15,19 @@ describe('Tweet unit tests', () => {
     expect(tweet.isActive).toEqual(true)
   })
 
+  it('should create a new Tweet informing tweet ID', () => {
+    const tweetProps = {
+      id: new TweetId('eebd5cee-245a-45c1-8f25-7c9036718048'),
+      authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),
+      content: 'Hello, world!',
+    }
+    const tweet = Tweet.create(tweetProps)
+    expect(tweet.id).toEqual(tweetProps.id)
+    expect(tweet.authorId).toEqual(tweetProps.authorId)
+    expect(tweet.content).toEqual(tweetProps.content)
+    expect(tweet.isActive).toEqual(true)
+  })
+
   it('should throw an error if authorId is not a valid UUID', () => {
     const invalidAuthorId = 'invalid-uuid'
     expect(() => Tweet.create({

@@ -2,7 +2,7 @@ import { AggregateRoot } from "@domain/@shared/aggregate-root"
 import { TweetId } from "../value-objects/tweet-id"
 import { UserId } from "@domain/users/value-objects/user-id"
 import NotificationError from "@domain/@shared/notification/notification-error"
-import TweetValidatorFactory from "../factories/validators/TweetValidatorFactory"
+import TweetValidatorFactory from "../factories/validators/tweet-validator.factory"
 
 interface TweetProps {
   id: TweetId;

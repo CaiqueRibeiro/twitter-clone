@@ -2,7 +2,7 @@ import NotificationError from "@domain/@shared/notification/notification-error";
 import { TweetId } from "../value-objects/tweet-id"
 import { ValueObject } from "@domain/@shared/value-object"
 import { UserId } from "@domain/users/value-objects/user-id"
-import LikeValidatorFactory from "../factories/validators/LikeValidatorFactory";
+import LikeValidatorFactory from "../factories/validators/like-validator.factory";
 
 
 interface LikeProps {

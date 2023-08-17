@@ -3,7 +3,7 @@ import { UserId } from "@domain/users/value-objects/user-id";
 import { ReplyId } from "../value-objects/reply-id";
 import { TweetId } from "../value-objects/tweet-id";
 import NotificationError from "@domain/@shared/notification/notification-error";
-import ReplyValidatorFactory from "../factories/validators/ReplyValidatorFactory";
+import ReplyValidatorFactory from "../factories/validators/reply-validator.factory";
 
 interface ReplyProps {
   id: ReplyId;
