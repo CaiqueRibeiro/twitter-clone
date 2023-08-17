@@ -35,6 +35,8 @@ class Tweet extends AggregateRoot {
     new TweetId(props.id)
     : props.id ?? new TweetId()
 
+    this._id = this._props.id // to validate with equals()
+
     this._props.authorId = props.authorId
 
     this._props.content = props.content

@@ -46,6 +46,29 @@ describe('Tweet unit tests', () => {
     expect(tweet.isActive).toEqual(false)
   })
 
+  it('should be able to verify if two Tweet entities refer to same tweet', () => {
+    const firstTweetProps = {
+      id: '8282e567-b907-4f4c-8c25-8a01854b3488',
+      authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),
+      content: 'Hello, world!',
+    }
+    const tweetOne = Tweet.create(firstTweetProps)
+    const sameTweet = Tweet.create(firstTweetProps)
+
+    expect(tweetOne.equals(sameTweet)).toBeTruthy()
+    const secondTweetProps = {
+      id: 'd665afd1-71e5-45da-b3fa-ef8a67b066b2',
+      authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),
+      content: 'Hello, world!',
+    }
+    const tweetTwo = Tweet.create(secondTweetProps)
+    expect(tweetOne.equals(tweetTwo)).toBeFalsy()
+    expect(sameTweet.equals(tweetTwo)).toBeFalsy()
+
+    expect(tweetOne.equals(undefined)).toBeFalsy()
+    expect(tweetOne.equals({ _id: undefined } as any)).toBeFalsy()
+  })
+
   it('should convert Tweet to JSON', () => {
     const arrange = {
       authorId: new UserId('e93ace45-8683-43b2-8037-3b2adc909f38'),

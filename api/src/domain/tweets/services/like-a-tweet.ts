@@ -11,7 +11,7 @@ interface LikeATweetProps {
 class LikeATweet {
   public static execute({ tweet, userWhoLikes }: LikeATweetProps): Like {
     if(tweet.authorId.equals(userWhoLikes.id)) {
-      throw new CyclicLikeOperationError('You cannot like your own tweet')
+      throw new CyclicLikeOperationError()
     }
 
     const like = Like.create({

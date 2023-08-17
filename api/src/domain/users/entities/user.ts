@@ -32,6 +32,8 @@ class User extends AggregateRoot {
     new UserId(props.id)
     : props.id ?? new UserId()
 
+    this._id = this._props.id // to validate with equals()
+
     this._props.email = props.email
     this._props.username = props.username
     this._props.profileImage = props.profileImage

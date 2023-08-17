@@ -32,6 +32,8 @@ class Reply extends AggregateRoot {
     new ReplyId(props.id)
     : props.id ?? new ReplyId()
 
+    this._id = this._props.id // to validate with equals()
+
     this._props.tweetId = props.tweetId
     this._props.userId = props.userId
 

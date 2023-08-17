@@ -2,7 +2,7 @@ import Notification from "./notification/notification";
 
 
 export abstract class Entity {
-  readonly _id: any
+  protected _id: any
   protected _notification: Notification
 
   constructor() {
@@ -10,7 +10,7 @@ export abstract class Entity {
   }
 
   abstract toJSON(): any
-  
+
   equals(obj: this) {
     if (obj === null || obj === undefined) {
       return false;
@@ -33,5 +33,9 @@ export abstract class Entity {
 
   get id() {
     return this._id
+  }
+
+  protected set id(id: any) {
+    this._id = id;
   }
 }

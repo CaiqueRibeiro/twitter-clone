@@ -1,5 +1,5 @@
 class CyclicLikeOperationError extends Error {
-  constructor(message: string) {
+  constructor(message: string = 'You cannot like your own tweet') {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype)
     this.name = this.constructor.name
