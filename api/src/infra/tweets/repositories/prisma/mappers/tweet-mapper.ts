@@ -11,20 +11,24 @@ class TweetMapper {
     const map = {
       tweet: {
         id: tweet.id.value,
-        author_id: tweet.authorId.value,
         content: tweet.content,
         active: tweet.isActive,
         created_at: tweet.createdAt,
         updated_at: tweet.updatedAt,
       },
-      referred_tweet: {
+      author: {
+        id: tweet.authorId.value,
+        email: 'zezinho@gmail.com',
+        username: 'ZezinhoTangamandápio'
+      },
+      referred_tweet: tweet.referredTweet ? {
         id: tweet.referredTweet?.id.value,
         author_id: tweet.referredTweet?.authorId.value,
         content: tweet.referredTweet?.content,
         active: tweet.referredTweet?.isActive,
         created_at: tweet.referredTweet?.createdAt,
         updated_at: tweet.referredTweet?.updatedAt,
-      }
+      } : undefined
     }
 
     return map
@@ -51,7 +55,7 @@ class TweetMapper {
       isActive: input.active,
       createdAt: input.created_at.toISOString(),
       updatedAt: input.updated_at.toISOString(),
-      referredTweet: referredTweet,
+      referredTweet: input.referred_tweet ? referredTweet : undefined,
     })
 
     return tweet

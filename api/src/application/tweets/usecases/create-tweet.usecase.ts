@@ -8,6 +8,7 @@ interface CreateTweetUseCaseInput {
   authorId: string;
   content: string;
   timestamp: string;
+  referredTweetId?: string;
 }
 
 type CreateTweetUseCaseOutput = void
@@ -18,11 +19,11 @@ class CreateTweetUseCase {
     @inject('TweetsRepositoryInterface')
     private tweetsRepository: TweetsRepositoryInterface
   ) {}
-  public async execute({ authorId, content, timestamp }: CreateTweetUseCaseInput): Promise<CreateTweetUseCaseOutput> {
+  public async execute({ authorId, content, timestamp, referredTweetId }: CreateTweetUseCaseInput): Promise<CreateTweetUseCaseOutput> {
     const newTweet = Tweet.create({
       authorId: new UserId(authorId),
       content,
-      createdAt: timestamp
+      createdAt: timestamp,
     })
     await this.tweetsRepository.create(newTweet)
   }

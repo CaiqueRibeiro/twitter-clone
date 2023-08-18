@@ -7,7 +7,17 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
   async  create(input: Tweet): Promise<void> {
     const raw = TweetMapper.toPrisma(input)
     await prisma.tweet.create({
-      data: { ...raw.tweet }
+      data: {
+        ...raw.tweet,
+        user: {
+          connectOrCreate: {
+            where: {
+              id: raw.author.id,
+            },
+            create: raw.author
+          }
+        }
+      },
     });
   }
 

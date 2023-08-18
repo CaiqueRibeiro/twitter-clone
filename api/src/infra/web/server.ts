@@ -1,5 +1,7 @@
+import "reflect-metadata"
 import dotenv from 'dotenv'
 import express from 'express'
+import '@infra/container'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { expressHandler } from 'trpc-playground/handlers/express'
 import cors from 'cors'

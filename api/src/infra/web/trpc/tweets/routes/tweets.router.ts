@@ -9,6 +9,7 @@ export const tweetsRouter = router({
   .input(z.object({
     authorId: z.string(),
     content: z.string(),
+    referredTweetId: z.string().optional(),
     timestamp: z.string(),
   }))
   .mutation(async (opts) => {
