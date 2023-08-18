@@ -88,6 +88,10 @@ class Tweet extends AggregateRoot {
     return this._props.updatedAt
   }
 
+  modifyContent(content: string) {
+    this._props.content = content
+  }
+
   delete() {
     this._props.isActive = false
   }

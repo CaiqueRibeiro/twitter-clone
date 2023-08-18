@@ -14,7 +14,8 @@
       "@config/*": ["config/*"],
       "@domain/*": ["domain/*"],
       "@application/*": ["application/*"],
-      "@infra/*": ["infra/*"]
+      "@infra/*": ["infra/*"],
+      "@config/*": ["@config/*"]
     },
     "strictNullChecks": false,
     "skipLibCheck": true,

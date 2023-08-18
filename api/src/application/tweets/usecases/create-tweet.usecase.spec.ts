@@ -23,7 +23,7 @@ describe('CreateTweetUseCase unit tests', () => {
     const createSpy = jest.spyOn(tweetsRepository, 'create')
     await usecase.execute(arrange)
 
-    const tweets = await tweetsRepository.findAllByAuthorId(arrange.authorId)
+    const tweets = await tweetsRepository.findAllByAuthorId({ authorId: arrange.authorId })
 
     expect(createSpy).toHaveBeenCalledTimes(1)
     expect(tweets.length).toBe(1)

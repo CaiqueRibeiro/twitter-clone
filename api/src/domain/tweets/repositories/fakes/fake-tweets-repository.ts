@@ -11,11 +11,12 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
   async create(input: Tweet): Promise<void> {
     this.tweets.push(input)
   }
-  
-  async findAllByAuthorId(authorId: string): Promise<Tweet[]> {
+
+  async findAllByAuthorId({ authorId, page, limit, orderBy, order }: { authorId: string; limit?: number; page?: number; orderBy?: string; order?: string }): Promise<Tweet[]> {
     const authorTweets = this.tweets.filter(tweet => tweet.authorId.value === authorId)
     return authorTweets
   }
+
 }
 
 export { FakeTweetsRepository }
