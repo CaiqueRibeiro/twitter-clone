@@ -6,3 +6,12 @@ export interface CreateTweetRequest {
 }
 
 export type CreateTweetResponse = void
+
+export interface ListTweetsByFollowerRequest {
+  followerId: string;
+}
+
+export interface ListTweetsByFollowerResponse {
+  tweets: any[];
+}
+

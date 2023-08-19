@@ -20,5 +20,18 @@ export const tweetsRouter = router({
     } catch (error) {
       return { message: 'Error while trying to create tweet.'}
     }
+  }),
+  listAllByFollower: publicProcedure
+  .input(z.object({
+    followerId: z.string()
+  }))
+  .query(async (opts) => {
+    try {
+      const { input }= opts
+      const allTweets = await tweetsController.index(input as Required<typeof input>)
+      return allTweets
+    } catch (error) {
+      return { message: 'Error while trying to list your tweets'}
+    }
   })
 })

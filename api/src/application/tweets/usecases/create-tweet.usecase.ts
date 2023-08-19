@@ -1,5 +1,4 @@
 import "reflect-metadata"
-import { TweetsRepositoryInterface } from "@domain/tweets/repositories/tweets-repository.interface"
 import { injectable, inject } from "tsyringe"
 import { CreateATweet } from "../services/create-a-tweet";
 
