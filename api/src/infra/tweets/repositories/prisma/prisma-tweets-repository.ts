@@ -2,6 +2,7 @@ import { prisma } from "@config/prisma"
 import { Tweet } from "@domain/tweets/entities/tweet"
 import { TweetsRepositoryInterface } from "@domain/tweets/repositories/tweets-repository.interface"
 import { TweetMapper } from "./mappers/tweet-mapper"
+import { TweetId } from "@domain/tweets/value-objects/tweet-id"
 
 class PrismaTweetsRepository implements TweetsRepositoryInterface {
   async  create(input: Tweet): Promise<void> {
@@ -19,6 +20,18 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
         }
       },
     });
+  }
+
+  async findById(tweetId: string | TweetId): Promise<Tweet | null> {
+    const tweet = await prisma.tweet.findUnique({
+      where: {
+        id: tweetId instanceof TweetId ? tweetId.value : tweetId
+      }
+    })
+
+    if(!tweet) return null
+
+    return TweetMapper.toEntity(tweet)
   }
 
   async findAllByAuthorId({ authorId, page = 1, limit = 50, orderBy = 'name', order = 'asc' }: { authorId: string, limit?: number, page?: number, orderBy?: string, order?: string }): Promise<Tweet[]> {
