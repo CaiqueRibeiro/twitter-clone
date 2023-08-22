@@ -3,6 +3,7 @@ import NotificationError from '@domain/@shared/notification/notification-error'
 import { Tweet } from './tweet'
 import { FeedId } from '../value-objects/feed-id'
 import { UserId } from '@domain/users/value-objects/user-id'
+import FeedValidatorFactory from '../factories/validators/feed-validator-factory'
 
 interface FeedProps {
   id: FeedId
@@ -28,6 +29,7 @@ class Feed extends AggregateRoot {
         : props.id ?? new FeedId()
 
     this._id = this._props.id // to validate with equals()
+    this._props.userId = props.userId
     this._props.tweets = props.tweets
   }
 

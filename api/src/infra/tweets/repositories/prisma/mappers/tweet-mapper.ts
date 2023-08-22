@@ -1,6 +1,6 @@
-import { Tweet } from "@domain/tweets/entities/tweet"
-import { UserId } from "@domain/users/value-objects/user-id"
-import { Tweet as PrismaTweet } from "@prisma/client"
+import { Tweet } from '@domain/tweets/entities/tweet'
+import { UserId } from '@domain/users/value-objects/user-id'
+import { Tweet as PrismaTweet } from '@prisma/client'
 
 type FullTweetPrismaProps = PrismaTweet & {
   referred_tweet?: PrismaTweet
@@ -19,16 +19,18 @@ class TweetMapper {
       author: {
         id: tweet.authorId.value,
         email: 'zezinho@gmail.com',
-        username: 'ZezinhoTangamandápio'
+        username: 'ZezinhoTangamandápio',
       },
-      referred_tweet: tweet.referredTweet ? {
-        id: tweet.referredTweet?.id.value,
-        author_id: tweet.referredTweet?.authorId.value,
-        content: tweet.referredTweet?.content,
-        active: tweet.referredTweet?.isActive,
-        created_at: tweet.referredTweet?.createdAt,
-        updated_at: tweet.referredTweet?.updatedAt,
-      } : undefined
+      referred_tweet: tweet.referredTweet
+        ? {
+            id: tweet.referredTweet?.id.value,
+            author_id: tweet.referredTweet?.authorId.value,
+            content: tweet.referredTweet?.content,
+            active: tweet.referredTweet?.isActive,
+            created_at: tweet.referredTweet?.createdAt,
+            updated_at: tweet.referredTweet?.updatedAt,
+          }
+        : undefined,
     }
 
     return map
@@ -37,14 +39,14 @@ class TweetMapper {
   public static toEntity(input: FullTweetPrismaProps): Tweet {
     let referredTweet: Tweet
 
-    if(input.referred_tweet) {
+    if (input.referred_tweet) {
       referredTweet = Tweet.create({
         id: input.referred_tweet.id,
         authorId: new UserId(input.referred_tweet.author_id),
         content: input.referred_tweet.content,
         isActive: input.referred_tweet.active,
         createdAt: input.referred_tweet.created_at.toISOString(),
-        updatedAt: input.referred_tweet.updated_at.toISOString()
+        updatedAt: input.referred_tweet.updated_at.toISOString(),
       })
     }
 
