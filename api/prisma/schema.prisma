@@ -81,7 +81,7 @@ model Follower {
 
 model Feed {
   id          String      @id @default(uuid())
-  user_id     String
+  user_id     String      @unique
   user        User        @relation(fields: [user_id], references: [id])
   updated_at  DateTime    @updatedAt
   feed_tweets FeedTweet[]

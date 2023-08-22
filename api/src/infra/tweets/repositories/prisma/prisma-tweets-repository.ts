@@ -3,6 +3,7 @@ import { Tweet } from "@domain/tweets/entities/tweet"
 import { TweetsRepositoryInterface } from "@domain/tweets/repositories/tweets-repository.interface"
 import { TweetMapper } from "./mappers/tweet-mapper"
 import { TweetId } from "@domain/tweets/value-objects/tweet-id"
+import { FeedMapper } from "./mappers/feed-mapper"
 
 class PrismaTweetsRepository implements TweetsRepositoryInterface {
   async  create(input: Tweet): Promise<void> {
@@ -54,8 +55,27 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
       }
     })
 
-    const tweets = raw.map(tweet => TweetMapper.toEntity(tweet));
-    return tweets;
+    const tweets = raw.map(tweet => TweetMapper.toEntity(tweet))
+    return tweets
+  }
+
+  async findFeedByFollowerId(followerId: string): Promise<Feed | null> {
+    const raw = await prisma.feed.findUnique({
+      where: {
+        user_id: followerId
+      },
+      include: {
+        feed_tweets: {
+          include: {
+            tweet: true
+          }
+        }
+      }
+    })
+
+    if(!raw) return null;
+    const feed = FeedMapper.toEntity(raw)
+    return feed
   }
 }
 

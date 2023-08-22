@@ -22,19 +22,20 @@ class TweetValidator implements EntityValidator<Tweet> {
             content: entity.content,
             isActive: entity.isActive,
             createdAt: entity.createdAt,
-            updatedAt: entity.updatedAt
+            updatedAt: entity.updatedAt,
           },
           {
-            abortEarly: false
-          });
+            abortEarly: false,
+          },
+        )
     } catch (errors) {
       const e = errors as yup.ValidationError
       e.errors.forEach(error => {
         entity.notification.addError({
           context: 'tweet',
           message: error,
-        });
-      });
+        })
+      })
     }
   }
 }
