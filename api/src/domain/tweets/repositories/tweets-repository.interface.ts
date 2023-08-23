@@ -1,5 +1,6 @@
 import { Feed } from '../entities/feed'
 import { Tweet } from '../entities/tweet'
+import { Like } from '../value-objects/like'
 import { TweetId } from '../value-objects/tweet-id'
 
 export interface TweetsRepositoryInterface {
@@ -19,4 +20,5 @@ export interface TweetsRepositoryInterface {
     order?: string
   }): Promise<Tweet[]>
   findFeedByFollowerId(followerId: string): Promise<Feed | null>
+  addLike(like: Like): Promise<void>
 }

@@ -1,9 +1,14 @@
 import { Tweet } from '@domain/tweets/entities/tweet'
 import { TweetsRepositoryInterface } from '../tweets-repository.interface'
 import { TweetId } from '@domain/tweets/value-objects/tweet-id'
+import { Feed } from '@domain/tweets/entities/feed'
+import { Like } from '@domain/tweets/value-objects/like'
+import { UserId } from '@domain/users/value-objects/user-id'
 
 class FakeTweetsRepository implements TweetsRepositoryInterface {
   public tweets: Tweet[]
+  public feeds: Feed[]
+  public likes: Like[]
 
   constructor() {
     this.tweets = []
@@ -23,12 +28,21 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
     return tweet
   }
 
-
   async findAllByAuthorId({ authorId, page, limit, orderBy, order }: { authorId: string; limit?: number; page?: number; orderBy?: string; order?: string }): Promise<Tweet[]> {
     const authorTweets = this.tweets.filter(tweet => tweet.authorId.value === authorId)
     return authorTweets
   }
 
+  async findFeedByFollowerId(followerId: string): Promise<Feed | null> {
+    const userId = new UserId(followerId)
+    const feed = this.feeds.find(feed => feed.userId.equals(userId))
+    if(!feed) return null
+    return feed
+  }
+
+  async addLike(like: Like): Promise<void> {
+    this.likes.push(like)
+  }
 }
 
 export { FakeTweetsRepository }
