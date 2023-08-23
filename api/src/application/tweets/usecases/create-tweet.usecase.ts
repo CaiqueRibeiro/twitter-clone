@@ -17,8 +17,9 @@ class CreateTweetUseCase {
     @inject('CreateATweet')
     private createATweetService: CreateATweet
   ) {}
+
   public async execute({ authorId, content, timestamp, referredTweetId }: CreateTweetUseCaseInput): Promise<CreateTweetUseCaseOutput> {
-    await this.createATweetService.execute({authorId, content, timestamp, referredTweetId })
+    await this.createATweetService.execute({ authorId, content, timestamp, referredTweetId })
   }
 }
 
