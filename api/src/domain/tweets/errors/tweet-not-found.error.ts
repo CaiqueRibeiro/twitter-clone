@@ -1,5 +1,5 @@
-class CyclicLikeOperationError extends Error {
-  constructor(message = 'You cannot like your own tweet') {
+class TweetNotFoundError extends Error {
+  constructor(message = 'Tweet not found') {
     super(message)
     Object.setPrototypeOf(this, new.target.prototype)
     this.name = this.constructor.name
@@ -8,4 +8,4 @@ class CyclicLikeOperationError extends Error {
   }
 }
 
-export { CyclicLikeOperationError }
+export { TweetNotFoundError }

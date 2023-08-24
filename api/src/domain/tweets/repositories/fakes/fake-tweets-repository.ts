@@ -12,6 +12,8 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
 
   constructor() {
     this.tweets = []
+    this.feeds = []
+    this.likes = []
   }
 
   async create(input: Tweet): Promise<void> {
@@ -20,23 +22,33 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
 
   async findById(tweetId: string | TweetId): Promise<Tweet | null> {
     let id: TweetId
-    if(!(tweetId instanceof TweetId)) {
+    if (!(tweetId instanceof TweetId)) {
       id = new TweetId(tweetId)
     }
     const tweet = this.tweets.find(tweet => tweet.id.equals(id))
-    if(!tweet) return null
+    if (!tweet) return null
     return tweet
   }
 
-  async findAllByAuthorId({ authorId, page, limit, orderBy, order }: { authorId: string; limit?: number; page?: number; orderBy?: string; order?: string }): Promise<Tweet[]> {
-    const authorTweets = this.tweets.filter(tweet => tweet.authorId.value === authorId)
+  async findAllByAuthorId({
+    authorId,
+  }: {
+    authorId: string
+    limit?: number
+    page?: number
+    orderBy?: string
+    order?: string
+  }): Promise<Tweet[]> {
+    const authorTweets = this.tweets.filter(
+      tweet => tweet.authorId.value === authorId,
+    )
     return authorTweets
   }
 
   async findFeedByFollowerId(followerId: string): Promise<Feed | null> {
     const userId = new UserId(followerId)
     const feed = this.feeds.find(feed => feed.userId.equals(userId))
-    if(!feed) return null
+    if (!feed) return null
     return feed
   }
 

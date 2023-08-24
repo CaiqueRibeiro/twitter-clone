@@ -1,15 +1,19 @@
-import { TweetsRepositoryInterface } from "@domain/tweets/repositories/tweets-repository.interface";
-import { LikeATweet } from "@domain/tweets/services/like-a-tweet"
-import { UsersRepositoryInterface } from "@domain/users/repositories/users-repository.usecase";
+import { TweetNotFoundError } from '@domain/tweets/errors/tweet-not-found.error'
+import { TweetsRepositoryInterface } from '@domain/tweets/repositories/tweets-repository.interface'
+import { LikeATweet } from '@domain/tweets/services/like-a-tweet'
+import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
+import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.usecase'
+import { injectable, inject } from 'tsyringe'
 
 interface LikeATweetUseCaseInput {
-  userId: string;
-  tweetId: string;
-  timestamp: string;
+  userId: string
+  tweetId: string
+  timestamp: string
 }
 
 type LikeATweetUseCaseOutput = void
 
+@injectable()
 class LikeATweetUseCase {
   constructor(
     @inject('TweetsRepositoryInterface')
@@ -18,12 +22,16 @@ class LikeATweetUseCase {
     private tweetsRepository: TweetsRepositoryInterface,
   ) {}
 
-  public async execute({ userId, tweetId, timestamp }: LikeATweetUseCaseInput): Promise<LikeATweetUseCaseOutput> {
+  public async execute({
+    userId,
+    tweetId,
+    timestamp,
+  }: LikeATweetUseCaseInput): Promise<LikeATweetUseCaseOutput> {
     const user = await this.usersRepository.findById(userId)
-    if(!user) throw new Error('User not found')
+    if (!user) throw new UserNotFoundError()
 
     const tweet = await this.tweetsRepository.findById(tweetId)
-    if(!tweet) new Error('Tweet not found')
+    if (!tweet) throw new TweetNotFoundError()
 
     const like = LikeATweet.execute({ tweet, userWhoLikes: user, timestamp })
 
