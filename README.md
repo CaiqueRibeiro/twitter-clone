@@ -30,10 +30,10 @@ In this project you'll be able to login to your profile, post a new Tweet and se
 - [ ] Login
 - [ ] Change profile photo
 - [ ] Follow other profiles
-- [ ] Post a tweet
-- [ ] Like a tweet
+- [x] Post a tweet
+- [x] Like a tweet
 - [ ] Reply a tweet
-- [ ] Retweet
+- [x] Retweet
 
 ## Author and license
 
