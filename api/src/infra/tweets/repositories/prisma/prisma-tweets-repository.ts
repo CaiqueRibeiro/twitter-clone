@@ -7,6 +7,8 @@ import { FeedMapper } from './mappers/feed-mapper'
 import { LikeMapper } from './mappers/like-mapper'
 import { Feed } from '@domain/tweets/entities/feed'
 import { Like } from '@domain/tweets/value-objects/like'
+import { ReplyMapper } from './mappers/reply-mapper'
+import { Reply } from '@domain/tweets/entities/reply'
 
 class PrismaTweetsRepository implements TweetsRepositoryInterface {
   async create(input: Tweet): Promise<void> {
@@ -95,6 +97,13 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
 
   async addLike(like: Like): Promise<void> {
     const raw = LikeMapper.toPrisma(like)
+    await prisma.like.create({
+      data: { ...raw },
+    })
+  }
+
+  async reply(reply: Reply): Promise<void> {
+    const raw = ReplyMapper.toPrisma(reply)
     await prisma.like.create({
       data: { ...raw },
     })

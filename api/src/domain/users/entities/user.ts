@@ -36,7 +36,7 @@ class User extends AggregateRoot {
 
     this._props.email = props.email
     this._props.username = props.username
-    this._props.profileImage = props.profileImage
+    this._props.profileImage = props.profileImage || ''
 
     this._props.createdAt = props.createdAt
       ? new Date(props.createdAt)

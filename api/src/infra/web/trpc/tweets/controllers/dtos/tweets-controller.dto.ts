@@ -12,5 +12,5 @@ export interface ListTweetsByFollowerRequest {
 }
 
 export interface ListTweetsByFollowerResponse {
-  tweets: any[]
+  feed: any
 }

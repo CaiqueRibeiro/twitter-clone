@@ -1,4 +1,5 @@
 import { Feed } from '../entities/feed'
+import { Reply } from '../entities/reply'
 import { Tweet } from '../entities/tweet'
 import { Like } from '../value-objects/like'
 import { TweetId } from '../value-objects/tweet-id'
@@ -21,4 +22,5 @@ export interface TweetsRepositoryInterface {
   }): Promise<Tweet[]>
   findFeedByFollowerId(followerId: string): Promise<Feed | null>
   addLike(like: Like): Promise<void>
+  reply(reply: Reply): Promise<void>
 }

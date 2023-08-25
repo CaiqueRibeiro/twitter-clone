@@ -16,7 +16,7 @@ type LikeATweetUseCaseOutput = void
 @injectable()
 class LikeATweetUseCase {
   constructor(
-    @inject('TweetsRepositoryInterface')
+    @inject('UsersRepositoryInterface')
     private usersRepository: UsersRepositoryInterface,
     @inject('TweetsRepositoryInterface')
     private tweetsRepository: TweetsRepositoryInterface,
