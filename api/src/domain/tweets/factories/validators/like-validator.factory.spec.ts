@@ -1,5 +1,5 @@
-import { LikeValidator } from "@domain/tweets/validators/like-validator"
-import LikeValidatorFactory from "./like-validator.factory"
+import { LikeValidator } from '@domain/tweets/validators/like-validator'
+import LikeValidatorFactory from './like-validator.factory'
 
 describe('LikeValidatorFactory unit tests', () => {
   it('should be able to return a LikeValidator', () => {

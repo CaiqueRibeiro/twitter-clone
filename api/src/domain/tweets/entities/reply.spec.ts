@@ -1,6 +1,6 @@
-import { UserId } from "@domain/users/value-objects/user-id"
-import { TweetId } from "../value-objects/tweet-id"
-import { Reply } from "./reply"
+import { UserId } from '@domain/users/value-objects/user-id'
+import { TweetId } from '../value-objects/tweet-id'
+import { Reply } from './reply'
 
 describe('Reply unit tests', () => {
   it('should create a new reply', () => {
@@ -8,7 +8,7 @@ describe('Reply unit tests', () => {
       tweetId: new TweetId('03c53334-56ba-4c63-8e85-853b18028d3f'),
       userId: new UserId('01367dcf-7e14-411f-9f10-e126df02b57c'),
       content: 'I agree with it',
-      timestamp: new Date()
+      timestamp: new Date(),
     }
     const reply = Reply.create(arrange)
     expect(reply).toBeDefined()
@@ -19,21 +19,25 @@ describe('Reply unit tests', () => {
   })
 
   it('should throw an error if tweetId is not a valid UUID', () => {
-    expect(() => Reply.create({
-      tweetId: new TweetId('1'),
-      userId: new UserId('01367dcf-7e14-411f-9f10-e126df02b57c'),
-      content: 'I agree with it',
-      timestamp: new Date()
-    })).toThrow('Value 1 must be a valid UUID')
+    expect(() =>
+      Reply.create({
+        tweetId: new TweetId('1'),
+        userId: new UserId('01367dcf-7e14-411f-9f10-e126df02b57c'),
+        content: 'I agree with it',
+        timestamp: new Date(),
+      }),
+    ).toThrow('Value 1 must be a valid UUID')
   })
 
   it('should throw an error if userId is not a valid UUID', () => {
-    expect(() => Reply.create({
-      tweetId: new TweetId('03c53334-56ba-4c63-8e85-853b18028d3f'),
-      userId: new UserId('15'),
-      content: 'I agree with it',
-      timestamp: new Date()
-    })).toThrow('Value 15 must be a valid UUID')
+    expect(() =>
+      Reply.create({
+        tweetId: new TweetId('03c53334-56ba-4c63-8e85-853b18028d3f'),
+        userId: new UserId('15'),
+        content: 'I agree with it',
+        timestamp: new Date(),
+      }),
+    ).toThrow('Value 15 must be a valid UUID')
   })
 
   it('should convert Tweet to JSON', () => {
@@ -41,7 +45,7 @@ describe('Reply unit tests', () => {
       tweetId: new TweetId('03c53334-56ba-4c63-8e85-853b18028d3f'),
       userId: new UserId('01367dcf-7e14-411f-9f10-e126df02b57c'),
       content: 'I agree with it',
-      timestamp: new Date()
+      timestamp: new Date(),
     }
     const tweet = Reply.create(arrange)
     const json = tweet.toJSON()

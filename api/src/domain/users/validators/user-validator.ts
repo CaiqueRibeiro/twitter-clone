@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import EntityValidator from '@domain/@shared/entity-validator'
-import { User } from '../entities/user';
+import { User } from '../entities/user'
 
 class UserValidator implements EntityValidator<User> {
   validate(entity: User): void {
@@ -25,16 +25,17 @@ class UserValidator implements EntityValidator<User> {
             updatedAt: entity.updatedAt,
           },
           {
-            abortEarly: false
-          });
+            abortEarly: false,
+          },
+        )
     } catch (errors) {
       const e = errors as yup.ValidationError
       e.errors.forEach(error => {
         entity.notification.addError({
           context: 'user',
           message: error,
-        });
-      });
+        })
+      })
     }
   }
 }

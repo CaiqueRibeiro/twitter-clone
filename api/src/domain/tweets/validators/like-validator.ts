@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import EntityValidator from '@domain/@shared/entity-validator'
-import { Like } from '../value-objects/like';
+import { Like } from '../value-objects/like'
 
 class LikeValidator implements EntityValidator<Like> {
   validate(entity: Like): void {
@@ -19,16 +19,17 @@ class LikeValidator implements EntityValidator<Like> {
             timestamp: entity.timestamp,
           },
           {
-            abortEarly: false
-          });
+            abortEarly: false,
+          },
+        )
     } catch (errors) {
       const e = errors as yup.ValidationError
       e.errors.forEach(error => {
         entity.notification.addError({
           context: 'like',
           message: error,
-        });
-      });
+        })
+      })
     }
   }
 }

@@ -1,24 +1,24 @@
-import { AggregateRoot } from "@domain/@shared/aggregate-root";
-import { UserId } from "../value-objects/user-id"
-import NotificationError from "@domain/@shared/notification/notification-error";
-import UserValidatorFactory from "../factories/validators/user-validator.factory";
+import { AggregateRoot } from '@domain/@shared/aggregate-root'
+import { UserId } from '../value-objects/user-id'
+import NotificationError from '@domain/@shared/notification/notification-error'
+import UserValidatorFactory from '../factories/validators/user-validator.factory'
 
 interface UserProps {
   id: UserId
-  email: string;
-  username: string;
-  profileImage: string;
-  createdAt: Date;
-  updatedAt: Date;
+  email: string
+  username: string
+  profileImage: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 interface UserConstructorProps {
-  id?: UserId | string;
-  email: string;
-  username: string;
-  profileImage?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  id?: UserId | string
+  email: string
+  username: string
+  profileImage?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 class User extends AggregateRoot {
@@ -28,9 +28,9 @@ class User extends AggregateRoot {
     super()
 
     this._props.id =
-    typeof props.id === 'string' ?
-    new UserId(props.id)
-    : props.id ?? new UserId()
+      typeof props.id === 'string'
+        ? new UserId(props.id)
+        : props.id ?? new UserId()
 
     this._id = this._props.id // to validate with equals()
 
@@ -38,8 +38,12 @@ class User extends AggregateRoot {
     this._props.username = props.username
     this._props.profileImage = props.profileImage
 
-    this._props.createdAt = props.createdAt ? new Date(props.createdAt) : new Date()
-    this._props.updatedAt = props.updatedAt ? new Date(props.updatedAt) : this._props.createdAt
+    this._props.createdAt = props.createdAt
+      ? new Date(props.createdAt)
+      : new Date()
+    this._props.updatedAt = props.updatedAt
+      ? new Date(props.updatedAt)
+      : this._props.createdAt
   }
 
   public static create(input: UserConstructorProps): User {
@@ -73,7 +77,7 @@ class User extends AggregateRoot {
   }
 
   public validate() {
-    UserValidatorFactory.create().validate(this);
+    UserValidatorFactory.create().validate(this)
     if (this._notification.hasErrors()) {
       throw new NotificationError(this._notification.getErrors())
     }

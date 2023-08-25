@@ -1,27 +1,27 @@
-import { AggregateRoot } from "@domain/@shared/aggregate-root"
-import { TweetId } from "../value-objects/tweet-id"
-import { UserId } from "@domain/users/value-objects/user-id"
-import NotificationError from "@domain/@shared/notification/notification-error"
-import TweetValidatorFactory from "../factories/validators/tweet-validator.factory"
+import { AggregateRoot } from '@domain/@shared/aggregate-root'
+import { TweetId } from '../value-objects/tweet-id'
+import { UserId } from '@domain/users/value-objects/user-id'
+import NotificationError from '@domain/@shared/notification/notification-error'
+import TweetValidatorFactory from '../factories/validators/tweet-validator.factory'
 
 interface TweetProps {
-  id: TweetId;
-  authorId: UserId;
-  content: string;
-  isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  referredTweet?: Tweet;
+  id: TweetId
+  authorId: UserId
+  content: string
+  isActive: boolean
+  createdAt: Date
+  updatedAt: Date
+  referredTweet?: Tweet
 }
 
 interface TweetConstructorProps {
-  id?: TweetId | string;
-  authorId: UserId;
-  content: string;
-  isActive?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  referredTweet?: Tweet;
+  id?: TweetId | string
+  authorId: UserId
+  content: string
+  isActive?: boolean
+  createdAt?: string
+  updatedAt?: string
+  referredTweet?: Tweet
 }
 
 class Tweet extends AggregateRoot {
@@ -31,17 +31,21 @@ class Tweet extends AggregateRoot {
     super()
 
     this._props.id =
-    typeof props.id === 'string' ?
-    new TweetId(props.id)
-    : props.id ?? new TweetId()
+      typeof props.id === 'string'
+        ? new TweetId(props.id)
+        : props.id ?? new TweetId()
 
     this._id = this._props.id // to validate with equals()
 
     this._props.authorId = props.authorId
 
     this._props.content = props.content
-    this._props.createdAt = props.createdAt ? new Date(props.createdAt) : new Date()
-    this._props.updatedAt = props.updatedAt ? new Date(props.updatedAt) : this._props.createdAt
+    this._props.createdAt = props.createdAt
+      ? new Date(props.createdAt)
+      : new Date()
+    this._props.updatedAt = props.updatedAt
+      ? new Date(props.updatedAt)
+      : this._props.createdAt
     this._props.isActive = props.isActive ?? true
 
     this._props.referredTweet = props.referredTweet
@@ -58,7 +62,7 @@ class Tweet extends AggregateRoot {
   }
 
   public validate() {
-    TweetValidatorFactory.create().validate(this);
+    TweetValidatorFactory.create().validate(this)
     if (this._notification.hasErrors()) {
       throw new NotificationError(this._notification.getErrors())
     }
@@ -78,7 +82,7 @@ class Tweet extends AggregateRoot {
 
   get referredTweet() {
     return this._props.referredTweet
- }
+  }
 
   get createdAt() {
     return this._props.createdAt
@@ -104,17 +108,19 @@ class Tweet extends AggregateRoot {
       isActive: this._props.isActive,
       createdAt: this._props.createdAt.toISOString(),
       updatedAt: this._props.createdAt.toISOString(),
-      referredTweet: this._props.referredTweet ? {
-        id: this._props.referredTweet._props.id.value,
-        authorId: this._props.referredTweet.authorId.value,
-        content: this._props.referredTweet.content,
-        isActive: this._props.referredTweet.isActive,
-        createdAt: this._props.referredTweet.createdAt.toISOString(),
-        updatedAt: this._props.referredTweet.createdAt.toISOString(),
-      } : undefined
+      referredTweet: this._props.referredTweet
+        ? {
+            id: this._props.referredTweet._props.id.value,
+            authorId: this._props.referredTweet.authorId.value,
+            content: this._props.referredTweet.content,
+            isActive: this._props.referredTweet.isActive,
+            createdAt: this._props.referredTweet.createdAt.toISOString(),
+            updatedAt: this._props.referredTweet.createdAt.toISOString(),
+          }
+        : undefined,
     }
 
-    return jsonResponse;
+    return jsonResponse
   }
 }
 

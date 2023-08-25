@@ -23,16 +23,17 @@ class ReplyValidator implements EntityValidator<Reply> {
             timestamp: entity.timestamp,
           },
           {
-            abortEarly: false
-          });
+            abortEarly: false,
+          },
+        )
     } catch (errors) {
       const e = errors as yup.ValidationError
       e.errors.forEach(error => {
         entity.notification.addError({
           context: 'reply',
           message: error,
-        });
-      });
+        })
+      })
     }
   }
 }

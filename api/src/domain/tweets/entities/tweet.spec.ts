@@ -1,7 +1,6 @@
-import { UserId } from "@domain/users/value-objects/user-id"
-import { Tweet } from "./tweet"
-import { TweetId } from "../value-objects/tweet-id"
-
+import { UserId } from '@domain/users/value-objects/user-id'
+import { Tweet } from './tweet'
+import { TweetId } from '../value-objects/tweet-id'
 
 describe('Tweet unit tests', () => {
   it('should create a new Tweet', () => {
@@ -30,10 +29,12 @@ describe('Tweet unit tests', () => {
 
   it('should throw an error if authorId is not a valid UUID', () => {
     const invalidAuthorId = 'invalid-uuid'
-    expect(() => Tweet.create({
-      authorId: new UserId(invalidAuthorId),
-      content: 'Hello, world!',
-    })).toThrow('Value invalid-uuid must be a valid UUID')
+    expect(() =>
+      Tweet.create({
+        authorId: new UserId(invalidAuthorId),
+        content: 'Hello, world!',
+      }),
+    ).toThrow('Value invalid-uuid must be a valid UUID')
   })
 
   it('should set isActive to false when deleted', () => {

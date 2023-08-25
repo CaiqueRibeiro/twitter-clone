@@ -1,5 +1,4 @@
-import Notification from "./notification/notification";
-
+import Notification from './notification/notification'
 
 export abstract class Entity {
   protected _id: any
@@ -13,15 +12,15 @@ export abstract class Entity {
 
   equals(obj: this) {
     if (obj === null || obj === undefined) {
-      return false;
+      return false
     }
 
     if (obj._id === undefined) {
-      return false;
+      return false
     }
 
     if (obj.constructor.name !== this.constructor.name) {
-      return false;
+      return false
     }
 
     return obj._id.equals(this._id)
@@ -36,6 +35,6 @@ export abstract class Entity {
   }
 
   protected set id(id: any) {
-    this._id = id;
+    this._id = id
   }
 }

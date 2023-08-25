@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import 'reflect-metadata'
 import dotenv from 'dotenv'
 import express from 'express'
 import '@infra/container'
@@ -9,7 +9,6 @@ import { createContext } from './trpc/trpc'
 import { appRouter } from './trpc/routes'
 
 const runApp = async () => {
-
   dotenv.config()
 
   const app = express()
@@ -21,18 +20,21 @@ const runApp = async () => {
   app.disable('x-powered-by')
   app.use(express.json())
 
-  app.use(apiEndpoint, trpcExpress.createExpressMiddleware({
-    router: appRouter,
-    createContext
-  }))
+  app.use(
+    apiEndpoint,
+    trpcExpress.createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    }),
+  )
 
   app.use(
     playgroundEndpoint,
     await expressHandler({
       trpcApiEndpoint: apiEndpoint,
       playgroundEndpoint,
-      router: appRouter
-    })
+      router: appRouter,
+    }),
   )
 
   const port: number = Number(process.env.PORT) || 3333
