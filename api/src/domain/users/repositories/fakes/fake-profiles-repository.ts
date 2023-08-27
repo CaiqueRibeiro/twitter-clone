@@ -4,10 +4,8 @@ import {
 } from '../profiles-repository.interface'
 
 interface ProfileDTO {
-  username: string
   email: string
   password: string
-  profileImage: string
 }
 
 class FakeProfilesRepository implements ProfilesRepositoryInterface {
@@ -17,17 +15,10 @@ class FakeProfilesRepository implements ProfilesRepositoryInterface {
     this.profiles = []
   }
 
-  async register({
-    username,
-    email,
-    password,
-    profileImage,
-  }: RegisterInput): Promise<void> {
+  async register({ email, password }: RegisterInput): Promise<void> {
     this.profiles.push({
-      username,
       email,
       password,
-      profileImage,
     })
   }
 }

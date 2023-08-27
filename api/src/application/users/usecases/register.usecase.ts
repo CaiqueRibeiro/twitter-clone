@@ -34,10 +34,8 @@ class RegisterUseCase {
     const encryptedPassword = await Encrypt.encryptPassword(password)
 
     await this.profilesRepository.register({
-      username,
       email,
       password: encryptedPassword,
-      profileImage,
     })
 
     const newUser = User.create({

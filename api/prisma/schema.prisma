@@ -53,6 +53,7 @@ model Reply {
 
 model User {
   id            String     @id @default(uuid())
+  profile       Profile    @relation(fields: [email], references: [email])
   email         String     @unique
   username      String     @unique
   profile_image String?
@@ -66,6 +67,12 @@ model User {
   Reply         Reply[]
 
   @@map("users")
+}
+
+model Profile {
+  email    String @id
+  password String
+  User     User?
 }
 
 model Follower {
