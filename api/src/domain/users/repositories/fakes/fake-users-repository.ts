@@ -1,5 +1,5 @@
 import { UserId } from '@domain/users/value-objects/user-id'
-import { UsersRepositoryInterface } from '../users-repository.usecase'
+import { UsersRepositoryInterface } from '../users-repository.interface'
 import { User } from '@domain/users/entities/user'
 
 class FakeUsersRepository implements UsersRepositoryInterface {

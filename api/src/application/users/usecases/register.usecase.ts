@@ -1,6 +1,9 @@
 import { Encrypt } from '@domain/@shared/utils/encrypt'
+import { User } from '@domain/users/entities/user'
+import { EmailAlreadyInUseError } from '@domain/users/errors/email-already-in-use.error'
+import { UsernameAlreadyInUseError } from '@domain/users/errors/username-already-in-use.error'
 import { ProfilesRepositoryInterface } from '@domain/users/repositories/profiles-repository.interface'
-import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.usecase'
+import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.interface'
 
 interface RegisterUseCaseInput {
   username: string
@@ -22,12 +25,11 @@ class RegisterUseCase {
   ): Promise<RegisterUseCaseOutput> {
     const { username, email, password, profileImage } = input
 
-    // const userByEmail = await this.usersRepository.findByEmail(email)
-    // if (userByEmail) throw new ConflictError('This email is already in use')
+    const userByEmail = await this.usersRepository.findByEmail(email)
+    if (userByEmail) throw new EmailAlreadyInUseError()
 
-    // const userByUsername = await this.usersRepository.findByUserName(username)
-    // if (userByUsername)
-    //   throw new ConflictError('This username is already in use')
+    const userByUsername = await this.usersRepository.findByUsername(username)
+    if (userByUsername) throw new UsernameAlreadyInUseError()
 
     const encryptedPassword = await Encrypt.encryptPassword(password)
 
@@ -37,6 +39,14 @@ class RegisterUseCase {
       password: encryptedPassword,
       profileImage,
     })
+
+    const newUser = User.create({
+      email,
+      username,
+      profileImage,
+    })
+
+    await this.usersRepository.create(newUser)
   }
 }
 
