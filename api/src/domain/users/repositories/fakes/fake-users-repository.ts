@@ -22,6 +22,18 @@ class FakeUsersRepository implements UsersRepositoryInterface {
     if (!user) return null
     return user
   }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = this.users.find(user => user.email === email)
+    if (!user) return null
+    return user
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    const user = this.users.find(user => user.username === username)
+    if (!user) return null
+    return user
+  }
 }
 
 export { FakeUsersRepository }
