@@ -4,4 +4,5 @@ config.modulePathIgnorePatterns = [
   '\\.integration\\.spec\\.ts$',
   '\\.e2e\\.spec\\.ts$',
 ];
+
 module.exports = config;

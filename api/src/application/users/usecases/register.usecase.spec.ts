@@ -27,7 +27,7 @@ describe('RegisterUseCase unit tests', () => {
     expect(registerSpy).toHaveBeenCalled()
   })
 
-  it('should cryptograph users password', async () => {
+  it('should encrypt users password', async () => {
     const registerSpy = jest.spyOn(profilesRepository, 'register')
 
     const arrange = {
