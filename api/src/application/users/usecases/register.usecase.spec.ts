@@ -1,6 +1,7 @@
 import { FakeUsersRepository } from '@domain/users/repositories/fakes/fake-users-repository'
 import { RegisterUseCase } from './register.usecase'
 import { FakeProfilesRepository } from '@domain/users/repositories/fakes/fake-profiles-repository'
+import { Encrypt } from '@domain/@shared/utils/encrypt'
 
 describe('RegisterUseCase unit tests', () => {
   let usersRepository: FakeUsersRepository
@@ -30,6 +31,8 @@ describe('RegisterUseCase unit tests', () => {
   it('should encrypt users password', async () => {
     const registerSpy = jest.spyOn(profilesRepository, 'register')
 
+    const encrypSpy = jest.spyOn(Encrypt, 'encryptPassword')
+
     const arrange = {
       username: 'ElonMusk',
       email: 'elonmusk@tesla.com',
@@ -39,6 +42,7 @@ describe('RegisterUseCase unit tests', () => {
     await usecase.execute(arrange)
 
     expect(registerSpy).toHaveBeenCalled()
+    expect(encrypSpy).toHaveBeenCalled()
   })
 
   test.todo('should throw error if email is already in use')

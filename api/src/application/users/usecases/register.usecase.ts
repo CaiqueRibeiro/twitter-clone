@@ -1,3 +1,4 @@
+import { Encrypt } from '@domain/@shared/utils/encrypt'
 import { ProfilesRepositoryInterface } from '@domain/users/repositories/profiles-repository.interface'
 import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.usecase'
 
@@ -28,10 +29,12 @@ class RegisterUseCase {
     // if (userByUsername)
     //   throw new ConflictError('This username is already in use')
 
+    const encryptedPassword = await Encrypt.encryptPassword(password)
+
     await this.profilesRepository.register({
       username,
       email,
-      password,
+      password: encryptedPassword,
       profileImage,
     })
   }
