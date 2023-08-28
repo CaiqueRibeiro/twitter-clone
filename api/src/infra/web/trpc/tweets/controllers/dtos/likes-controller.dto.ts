@@ -4,4 +4,6 @@ export interface LikeATweetRequest {
   timestamp: string
 }
 
-export type LikeATweetResponse = void
+export interface LikeATweetResponse {
+  message: string
+}

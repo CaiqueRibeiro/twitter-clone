@@ -11,16 +11,26 @@ import { GetUsersFeedUseCase } from '@application/tweets/usecases/get-users-feed
 export class TweetsController {
   public async create(input: CreateTweetRequest): Promise<CreateTweetResponse> {
     const { authorId, content, timestamp } = input
-    const usecase = container.resolve(CreateTweetUseCase)
-    await usecase.execute({ authorId, content, timestamp })
+    try {
+      const usecase = container.resolve(CreateTweetUseCase)
+      await usecase.execute({ authorId, content, timestamp })
+      return { message: 'Tweet created.' }
+    } catch (error) {
+      return { message: 'Error while trying to create tweet.' }
+    }
   }
 
   public async index(
     input: ListTweetsByFollowerRequest,
   ): Promise<ListTweetsByFollowerResponse> {
     const { followerId } = input
-    const usecase = container.resolve(GetUsersFeedUseCase)
-    const tweets = await usecase.execute({ followerId })
-    return tweets
+    try {
+      const usecase = container.resolve(GetUsersFeedUseCase)
+      const tweets = await usecase.execute({ followerId })
+      return tweets
+    } catch (error) {
+      return { message: 'Error while trying to list your tweets' }
+    }
   }
 }
+

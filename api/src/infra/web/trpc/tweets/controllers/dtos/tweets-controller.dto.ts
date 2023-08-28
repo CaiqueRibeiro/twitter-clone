@@ -5,12 +5,14 @@ export interface CreateTweetRequest {
   referredTweetId?: string
 }
 
-export type CreateTweetResponse = void
+export interface CreateTweetResponse {
+  message: string
+}
 
 export interface ListTweetsByFollowerRequest {
   followerId: string
 }
 
-export interface ListTweetsByFollowerResponse {
+export type ListTweetsByFollowerResponse = {
   feed: any
-}
+} | { message: string }

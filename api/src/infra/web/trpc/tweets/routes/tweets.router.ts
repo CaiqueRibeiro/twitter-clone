@@ -17,13 +17,9 @@ export const tweetsRouter = router({
       }),
     )
     .mutation(async opts => {
-      try {
-        const { input } = opts
-        await tweetsController.create(input as Required<typeof input>)
-        return { message: 'Tweet created.' }
-      } catch (error) {
-        return { message: 'Error while trying to create tweet.' }
-      }
+      const { input } = opts
+      const result = await tweetsController.create(input as Required<typeof input>)
+      return result
     }),
   getUsersFeed: publicProcedure
     .input(
@@ -32,15 +28,9 @@ export const tweetsRouter = router({
       }),
     )
     .query(async opts => {
-      try {
-        const { input } = opts
-        const allTweets = await tweetsController.index(
-          input as Required<typeof input>,
-        )
-        return allTweets
-      } catch (error) {
-        return { message: 'Error while trying to list your tweets' }
-      }
+      const { input } = opts
+      const result = await tweetsController.index(input as Required<typeof input>)
+      return result
     }),
   likeATweet: publicProcedure
     .input(
@@ -51,12 +41,8 @@ export const tweetsRouter = router({
       }),
     )
     .mutation(async opts => {
-      try {
         const { input } = opts
-        await likesController.create(input as Required<typeof input>)
-        return { message: 'Like add to this tweet' }
-      } catch (error) {
-        return { message: 'Error while trying to like a tweet.' }
-      }
+        const result = await likesController.create(input as Required<typeof input>)
+        return result
     }),
 })
