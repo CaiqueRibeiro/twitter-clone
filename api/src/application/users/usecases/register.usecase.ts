@@ -4,6 +4,7 @@ import { EmailAlreadyInUseError } from '@domain/users/errors/email-already-in-us
 import { UsernameAlreadyInUseError } from '@domain/users/errors/username-already-in-use.error'
 import { ProfilesRepositoryInterface } from '@domain/users/repositories/profiles-repository.interface'
 import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.interface'
+import { injectable, inject } from 'tsyringe'
 
 interface RegisterUseCaseInput {
   username: string
@@ -13,10 +14,12 @@ interface RegisterUseCaseInput {
 }
 
 type RegisterUseCaseOutput = void
-
+@injectable()
 class RegisterUseCase {
   constructor(
+    @inject('UsersRepositoryInterface')
     private usersRepository: UsersRepositoryInterface,
+    @inject('ProfilesRepositoryInterface')
     private profilesRepository: ProfilesRepositoryInterface,
   ) {}
 

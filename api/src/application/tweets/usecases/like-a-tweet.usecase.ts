@@ -2,7 +2,7 @@ import { TweetNotFoundError } from '@domain/tweets/errors/tweet-not-found.error'
 import { TweetsRepositoryInterface } from '@domain/tweets/repositories/tweets-repository.interface'
 import { LikeATweet } from '@domain/tweets/services/like-a-tweet'
 import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
-import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.usecase'
+import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.interface'
 import { injectable, inject } from 'tsyringe'
 
 interface LikeATweetUseCaseInput {
