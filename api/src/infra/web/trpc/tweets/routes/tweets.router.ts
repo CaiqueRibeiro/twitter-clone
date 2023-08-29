@@ -1,13 +1,32 @@
 import { z } from 'zod'
-import { router, publicProcedure } from '../../trpc'
+import { router, middleware, publicProcedure } from '../../trpc'
 import { TweetsController } from '../controllers/tweets-controller'
 import { LikesController } from '../controllers/likes-controller'
+import { TRPCError } from '@trpc/server'
+import jwt from 'jsonwebtoken'
+
+const isLoggedMiddleware = middleware(async ({ ctx, next }) => {
+  if(!ctx.token) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' })
+  }
+
+  try {
+    const userId = jwt.verify(ctx.token, process.env.JWT_SECRET)
+    return next({
+      ctx: { userId }
+    })
+  } catch (error) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' })
+  }
+})
+
+const authorizedProcedure = publicProcedure.use(isLoggedMiddleware)
 
 const tweetsController = new TweetsController()
 const likesController = new LikesController()
 
 export const tweetsRouter = router({
-  create: publicProcedure
+  create: authorizedProcedure
     .input(
       z.object({
         authorId: z.string(),
@@ -21,7 +40,7 @@ export const tweetsRouter = router({
       const result = await tweetsController.create(input as Required<typeof input>)
       return result
     }),
-  getUsersFeed: publicProcedure
+  getUsersFeed: authorizedProcedure
     .input(
       z.object({
         followerId: z.string(),
@@ -32,7 +51,7 @@ export const tweetsRouter = router({
       const result = await tweetsController.index(input as Required<typeof input>)
       return result
     }),
-  likeATweet: publicProcedure
+  likeATweet: authorizedProcedure
     .input(
       z.object({
         userId: z.string(),

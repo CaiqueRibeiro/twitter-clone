@@ -16,13 +16,17 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
     await prisma.tweet.create({
       data: {
         ...raw.tweet,
-        user: {
-          connectOrCreate: {
-            where: {
-              id: raw.author.id,
+        referred_tweet: raw.referred_tweet
+        ? {
+            connect: {
+              id: raw.referred_tweet.id,
             },
-            create: raw.author,
-          },
+          }
+        : undefined,
+        user: {
+          connect: {
+            id: raw.author.id
+          }
         },
       },
     })

@@ -4,6 +4,7 @@ import { TweetId } from '@domain/tweets/value-objects/tweet-id'
 import { Feed } from '@domain/tweets/entities/feed'
 import { Like } from '@domain/tweets/value-objects/like'
 import { UserId } from '@domain/users/value-objects/user-id'
+import { Reply } from '@domain/tweets/entities/reply'
 
 class FakeTweetsRepository implements TweetsRepositoryInterface {
   public tweets: Tweet[]
@@ -54,6 +55,10 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
 
   async addLike(like: Like): Promise<void> {
     this.likes.push(like)
+  }
+
+  reply(reply: Reply): Promise<void> {
+    throw new Error('Method not implemented.')
   }
 }
 

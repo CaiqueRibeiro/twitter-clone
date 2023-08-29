@@ -5,6 +5,12 @@ import { UsersRepositoryInterface } from '@domain/users/repositories/users-repos
 import { PrismaUsersRepository } from '@infra/users/prisma/prisma-users-repository'
 import { ProfilesRepositoryInterface } from '@domain/users/repositories/profiles-repository.interface'
 import { PrismaProfilesRepository } from '@infra/users/prisma/prisma-profiles-repository'
+import { CreateATweet } from '@application/tweets/services/create-a-tweet'
+
+container.registerSingleton<CreateATweet>(
+  'CreateATweet',
+  CreateATweet,
+)
 
 container.registerSingleton<TweetsRepositoryInterface>(
   'TweetsRepositoryInterface',

@@ -10,12 +10,13 @@ import { GetUsersFeedUseCase } from '@application/tweets/usecases/get-users-feed
 
 export class TweetsController {
   public async create(input: CreateTweetRequest): Promise<CreateTweetResponse> {
-    const { authorId, content, timestamp } = input
+    const { authorId, content, timestamp, referredTweetId } = input
     try {
       const usecase = container.resolve(CreateTweetUseCase)
-      await usecase.execute({ authorId, content, timestamp })
+      await usecase.execute({ authorId, content, timestamp, referredTweetId })
       return { message: 'Tweet created.' }
     } catch (error) {
+      console.log(error)
       return { message: 'Error while trying to create tweet.' }
     }
   }
