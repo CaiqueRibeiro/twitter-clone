@@ -21,6 +21,16 @@ class FakeProfilesRepository implements ProfilesRepositoryInterface {
       password,
     })
   }
+
+  async login({ email, password }: RegisterInput): Promise<boolean> {
+    const isValidLogin = this.profiles.find(item => item.email === email && item.password === password)
+
+    if(isValidLogin) {
+      return true
+    }
+
+    return false
+  }
 }
 
 export { FakeProfilesRepository }

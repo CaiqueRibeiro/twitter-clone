@@ -12,6 +12,18 @@ class PrismaProfilesRepository implements ProfilesRepositoryInterface {
       data: { ...raw },
     })
   }
+
+  async login({email, password }: RegisterInput): Promise<boolean> {
+    const profile = await prisma.profile.findFirst({
+      where: { AND: [{email},{password}] }
+    })
+
+    if(profile) {
+      return true
+    }
+
+    return false
+  }
 }
 
 export { PrismaProfilesRepository }
