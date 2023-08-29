@@ -26,13 +26,13 @@ Twitter with tRPC is an identical clone of Twitter both in interface and main po
 In this project you'll be able to login to your profile, post a new Tweet and see other profiles tweets, as long as you follow them.
 
 ### Features
-- [ ] Register
-- [ ] Login
+- [x] Register
+- [x] Login
 - [ ] Change profile photo
 - [ ] Follow other profiles
 - [x] Post a tweet
 - [x] Like a tweet
-- [ ] Reply a tweet
+- [x] Reply a tweet
 - [x] Retweet
 
 ## Author and license
