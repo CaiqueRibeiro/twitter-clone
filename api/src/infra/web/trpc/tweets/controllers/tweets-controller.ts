@@ -16,7 +16,6 @@ export class TweetsController {
       await usecase.execute({ authorId, content, timestamp, referredTweetId })
       return { message: 'Tweet created.' }
     } catch (error) {
-      console.log(error)
       return { message: 'Error while trying to create tweet.' }
     }
   }

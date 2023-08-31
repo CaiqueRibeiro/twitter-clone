@@ -1,26 +1,9 @@
 import { z } from 'zod'
-import { router, middleware, publicProcedure } from '../../trpc'
+import { router } from '../../trpc'
 import { TweetsController } from '../controllers/tweets-controller'
 import { LikesController } from '../controllers/likes-controller'
-import { TRPCError } from '@trpc/server'
-import jwt from 'jsonwebtoken'
+import { authorizedProcedure } from '../../shared/auth-middleware'
 
-const isLoggedMiddleware = middleware(async ({ ctx, next }) => {
-  if(!ctx.token) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' })
-  }
-
-  try {
-    const userId = jwt.verify(ctx.token, process.env.JWT_SECRET)
-    return next({
-      ctx: { userId }
-    })
-  } catch (error) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' })
-  }
-})
-
-const authorizedProcedure = publicProcedure.use(isLoggedMiddleware)
 
 const tweetsController = new TweetsController()
 const likesController = new LikesController()

@@ -1,4 +1,5 @@
 import { CyclicFollowOperationError } from "@domain/users/errors/cyclic-follow-operation.error"
+import { DuplicateFollowingError } from "@domain/users/errors/duplicate-following.error"
 import { UserNotFoundError } from "@domain/users/errors/user-not-found.error"
 import { UsersRepositoryInterface } from "@domain/users/repositories/users-repository.interface"
 import { injectable, inject } from "tsyringe"
@@ -26,7 +27,14 @@ class FollowUseCase {
     const userToBeFollowed = await this.usersRepository.findById(userToFollow)
     if(!userToBeFollowed) throw new UserNotFoundError()
 
+    const userFollowers = await this.usersRepository.getFollowers(userToBeFollowed)
+
+    const isLoggedUserAlreadyFollowing = userFollowers.find(user => user.id.value === userId)
+
+    if(isLoggedUserAlreadyFollowing) throw new DuplicateFollowingError()
+
     await this.usersRepository.followUser(userId, userToFollow)
+
   }
 }
 

@@ -47,6 +47,31 @@ class PrismaUsersRepository implements UsersRepositoryInterface {
 
     return UserMapper.toEntity(user)
   }
+
+  async followUser(userId: string, userToFollow: string): Promise<void> {
+    await prisma.follower.create({
+      data: {
+        follower_id: userId,
+        followee_id: userToFollow
+      }
+    })
+  }
+
+  async getFollowers(user: User): Promise<User[]> {
+    const raw = await prisma.follower.findMany({
+      select: {
+        follower: true
+      },
+      where: {
+        followee_id: user.id.value
+      }
+    })
+
+
+    const users = raw.map(item => UserMapper.toEntity(item.follower))
+
+    return users
+  }
 }
 
 export { PrismaUsersRepository }

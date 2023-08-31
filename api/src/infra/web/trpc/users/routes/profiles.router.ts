@@ -5,7 +5,7 @@ import { ProfilesController } from '../controllers/profiles-controller'
 const profilesController = new ProfilesController()
 
 export const profilesRouter = router({
-  create: publicProcedure
+  register: publicProcedure
     .input(
       z.object({
         username: z.string(),
