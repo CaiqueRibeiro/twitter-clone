@@ -29,7 +29,7 @@ In this project you'll be able to login to your profile, post a new Tweet and se
 - [x] Register
 - [x] Login
 - [ ] Change profile photo
-- [ ] Follow other profiles
+- [x] Follow other profiles
 - [x] Post a tweet
 - [x] Like a tweet
 - [x] Reply a tweet
