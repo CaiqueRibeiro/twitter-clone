@@ -6,4 +6,6 @@ export interface UsersRepositoryInterface {
   findById(tweetId: UserId | string): Promise<User | null>
   findByEmail(email: string): Promise<User | null>
   findByUsername(username: string): Promise<User | null>
+  followUser(userId: string, userToFollow: string): Promise<void>
+  getFollowers(user: User): Promise<User[]>
 }
