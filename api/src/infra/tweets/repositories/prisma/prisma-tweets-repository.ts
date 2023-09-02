@@ -17,16 +17,16 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
       data: {
         ...raw.tweet,
         referred_tweet: raw.referred_tweet
-        ? {
-            connect: {
-              id: raw.referred_tweet.id,
-            },
-          }
-        : undefined,
+          ? {
+              connect: {
+                id: raw.referred_tweet.id,
+              },
+            }
+          : undefined,
         user: {
           connect: {
-            id: raw.author.id
-          }
+            id: raw.author.id,
+          },
         },
       },
     })

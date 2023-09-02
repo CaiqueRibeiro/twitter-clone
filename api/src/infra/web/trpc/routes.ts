@@ -6,7 +6,7 @@ import { usersRouter } from './users/routes/users.router'
 export const appRouter = router({
   tweet: tweetsRouter,
   profile: profilesRouter,
-  user: usersRouter
+  user: usersRouter,
 })
 
 export type AppRouter = typeof appRouter

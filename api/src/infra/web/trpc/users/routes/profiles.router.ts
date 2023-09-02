@@ -16,10 +16,12 @@ export const profilesRouter = router({
     )
     .mutation(async opts => {
       const { input } = opts
-      const result = await profilesController.register(input as Required<typeof input>)
+      const result = await profilesController.register(
+        input as Required<typeof input>,
+      )
       return result
     }),
-    login: publicProcedure
+  login: publicProcedure
     .input(
       z.object({
         email: z.string(),
@@ -28,7 +30,9 @@ export const profilesRouter = router({
     )
     .mutation(async opts => {
       const { input } = opts
-      const tokenOrErrorMessage = await profilesController.login(input as Required<typeof input>)
+      const tokenOrErrorMessage = await profilesController.login(
+        input as Required<typeof input>,
+      )
       return tokenOrErrorMessage
-    })
+    }),
 })

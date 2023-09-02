@@ -1,9 +1,9 @@
-import { FakeProfilesRepository } from "@domain/users/repositories/fakes/fake-profiles-repository"
-import { FakeUsersRepository } from "@domain/users/repositories/fakes/fake-users-repository"
-import { LoginUseCase } from "./login.usecase"
-import { WrongCredentialsError } from "@domain/users/errors/wrong-credentials.error"
-import { User } from "@domain/users/entities/user"
-import { Encrypt } from "@domain/@shared/utils/encrypt"
+import { FakeProfilesRepository } from '@domain/users/repositories/fakes/fake-profiles-repository'
+import { FakeUsersRepository } from '@domain/users/repositories/fakes/fake-users-repository'
+import { LoginUseCase } from './login.usecase'
+import { WrongCredentialsError } from '@domain/users/errors/wrong-credentials.error'
+import { User } from '@domain/users/entities/user'
+import { Encrypt } from '@domain/@shared/utils/encrypt'
 
 describe('LoginUseCase unit tests', () => {
   let usersRepository: FakeUsersRepository
@@ -17,7 +17,7 @@ describe('LoginUseCase unit tests', () => {
 
   const profileDTO = {
     email: 'elon_musk@gmail.com',
-    password: 'twitterismine666'
+    password: 'twitterismine666',
   }
 
   beforeEach(() => {
@@ -29,13 +29,13 @@ describe('LoginUseCase unit tests', () => {
   it('should login using email and password', async () => {
     await profilesRepository.register({
       email: profileDTO.email,
-      password: await Encrypt.encryptPassword(profileDTO.password)
+      password: await Encrypt.encryptPassword(profileDTO.password),
     })
     await usersRepository.create(user)
 
     const arrange = {
       email: 'elon_musk@gmail.com',
-      password: 'twitterismine666'
+      password: 'twitterismine666',
     }
 
     const { token } = await usecase.execute(arrange)
@@ -46,22 +46,24 @@ describe('LoginUseCase unit tests', () => {
   it('throw error if email does not match', async () => {
     await profilesRepository.register({
       email: profileDTO.email,
-      password: await Encrypt.encryptPassword(profileDTO.password)
+      password: await Encrypt.encryptPassword(profileDTO.password),
     })
     await usersRepository.create(user)
 
     const arrange = {
       email: 'elonzito@gmail.com',
-      password: 'twitterismine666'
+      password: 'twitterismine666',
     }
 
-    await expect(usecase.execute(arrange)).rejects.toThrow(WrongCredentialsError)
+    await expect(usecase.execute(arrange)).rejects.toThrow(
+      WrongCredentialsError,
+    )
   })
 
   it('throw error if password does not match', async () => {
     await profilesRepository.register({
       email: profileDTO.email,
-      password: await Encrypt.encryptPassword(profileDTO.password)
+      password: await Encrypt.encryptPassword(profileDTO.password),
     })
     await usersRepository.create(user)
 
@@ -70,6 +72,8 @@ describe('LoginUseCase unit tests', () => {
       password: '123elon321',
     }
 
-    await expect(usecase.execute(arrange)).rejects.toThrow(WrongCredentialsError)
+    await expect(usecase.execute(arrange)).rejects.toThrow(
+      WrongCredentialsError,
+    )
   })
 })

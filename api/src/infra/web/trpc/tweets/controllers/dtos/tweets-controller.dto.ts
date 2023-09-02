@@ -13,6 +13,8 @@ export interface ListTweetsByFollowerRequest {
   followerId: string
 }
 
-export type ListTweetsByFollowerResponse = {
-  feed: any
-} | { message: string }
+export type ListTweetsByFollowerResponse =
+  | {
+      feed: any
+    }
+  | { message: string }

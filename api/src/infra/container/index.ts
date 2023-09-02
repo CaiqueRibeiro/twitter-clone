@@ -11,10 +11,7 @@ import { UploadImageService } from '@infra/@shared/services/upload-image'
 import StorageProviderInterface from '@infra/@shared/providers/image-storage'
 import { S3StorageProvider } from '@infra/@shared/providers/aws/s3-storage'
 
-container.registerSingleton<CreateATweet>(
-  'CreateATweet',
-  CreateATweet,
-)
+container.registerSingleton<CreateATweet>('CreateATweet', CreateATweet)
 
 container.registerSingleton<TweetsRepositoryInterface>(
   'TweetsRepositoryInterface',
@@ -33,11 +30,10 @@ container.registerSingleton<ProfilesRepositoryInterface>(
 
 container.registerSingleton<StorageProviderInterface>(
   'StorageProviderInterface',
-  S3StorageProvider
+  S3StorageProvider,
 )
-
 
 container.registerSingleton<UploadImageServiceInterface>(
   'UploadImageServiceInterface',
-  UploadImageService
+  UploadImageService,
 )

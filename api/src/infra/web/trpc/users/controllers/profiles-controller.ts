@@ -3,7 +3,7 @@ import {
   RegisterRequest,
   RegisterResponse,
   LoginRequest,
-  LoginResponse
+  LoginResponse,
 } from './dtos/profiles-controller.dto'
 import { RegisterUseCase } from '@application/users/usecases/register.usecase'
 import { UsernameAlreadyInUseError } from '@domain/users/errors/username-already-in-use.error'
@@ -17,7 +17,7 @@ export class ProfilesController {
     try {
       const usecase = container.resolve(RegisterUseCase)
       await usecase.execute({ email, password, username, profileImage })
-      return { message: 'User created.'}
+      return { message: 'User created.' }
     } catch (error) {
       if (error instanceof UsernameAlreadyInUseError) {
         return { message: error.message }
@@ -27,12 +27,12 @@ export class ProfilesController {
         return { message: error.message }
       }
 
-      return { message: 'Error while trying register a new user.'}
+      return { message: 'Error while trying register a new user.' }
     }
   }
 
   public async login(input: LoginRequest): Promise<LoginResponse> {
-    const { email, password  } = input
+    const { email, password } = input
     try {
       const usecase = container.resolve(LoginUseCase)
       const token = await usecase.execute({ email, password })
@@ -42,7 +42,7 @@ export class ProfilesController {
         return { message: error.message }
       }
 
-      return { message: 'Error while trying login.'}
+      return { message: 'Error while trying login.' }
     }
   }
 }

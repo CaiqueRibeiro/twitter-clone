@@ -20,8 +20,8 @@ export const getAccessToken = async ({
     const notAuthenticated = {
       req,
       res,
-      token: null as string
-    };
+      token: null as string,
+    }
 
     if (!access_token) {
       return notAuthenticated
@@ -30,7 +30,7 @@ export const getAccessToken = async ({
     return {
       req,
       res,
-      token: access_token
+      token: access_token,
     }
   } catch (err: any) {
     throw new TRPCError({

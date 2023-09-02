@@ -8,6 +8,10 @@ const usersController = new UsersRestController()
 const usersRouter = Router()
 const upload = multer(uploadConfig.multer)
 
-usersRouter.post('/upload-photo', upload.single('photo'), usersController.uploadPhoto)
+usersRouter.post(
+  '/upload-photo',
+  upload.single('photo'),
+  usersController.uploadPhoto,
+)
 
 export { usersRouter }

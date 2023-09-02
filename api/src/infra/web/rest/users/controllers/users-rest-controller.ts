@@ -3,7 +3,10 @@ import { container } from 'tsyringe'
 import { UploadAPhotoUseCase } from '@application/users/usecases/upload-a-photo.usecase'
 
 class UsersRestController {
-  public async uploadPhoto(request: Request, response: Response): Promise<Response> {
+  public async uploadPhoto(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
     const photo = request.file.buffer
 
     const usecase = container.resolve(UploadAPhotoUseCase)

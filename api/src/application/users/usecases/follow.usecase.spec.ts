@@ -1,9 +1,9 @@
-import { User } from "@domain/users/entities/user"
-import { FakeUsersRepository } from "@domain/users/repositories/fakes/fake-users-repository"
-import { FollowUseCase } from "./follow.usecase"
-import { UserNotFoundError } from "@domain/users/errors/user-not-found.error"
-import { CyclicFollowOperationError } from "@domain/users/errors/cyclic-follow-operation.error"
-import { DuplicateFollowingError } from "@domain/users/errors/duplicate-following.error"
+import { User } from '@domain/users/entities/user'
+import { FakeUsersRepository } from '@domain/users/repositories/fakes/fake-users-repository'
+import { FollowUseCase } from './follow.usecase'
+import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
+import { CyclicFollowOperationError } from '@domain/users/errors/cyclic-follow-operation.error'
+import { DuplicateFollowingError } from '@domain/users/errors/duplicate-following.error'
 
 describe('FollowUseCase unit tests', () => {
   let usersRepository: FakeUsersRepository
@@ -11,14 +11,13 @@ describe('FollowUseCase unit tests', () => {
 
   const myUser = User.create({
     email: 'marco_zuckebergo@gmail.com',
-    username: 'Marco_Zuckebergo'
+    username: 'Marco_Zuckebergo',
   })
 
   const userToFollow = User.create({
     email: 'elonmanco@gmail.com',
-    username: 'ElonManco'
+    username: 'ElonManco',
   })
-
 
   beforeEach(() => {
     usersRepository = new FakeUsersRepository()
@@ -31,14 +30,14 @@ describe('FollowUseCase unit tests', () => {
 
     const arrange = {
       userId: myUser.id.value,
-      userToFollow: userToFollow.id.value
+      userToFollow: userToFollow.id.value,
     }
 
     await usecase.execute(arrange)
 
     const userFollowers = await usersRepository.getFollowers(userToFollow)
 
-    expect (userFollowers.length).toBe(1)
+    expect(userFollowers.length).toBe(1)
     expect(userFollowers[0].id.value).toBe(myUser.id.value)
   })
 
@@ -47,7 +46,7 @@ describe('FollowUseCase unit tests', () => {
 
     const arrange = {
       userId: myUser.id.value,
-      userToFollow: userToFollow.id.value
+      userToFollow: userToFollow.id.value,
     }
 
     await expect(usecase.execute(arrange)).rejects.toThrow(UserNotFoundError)
@@ -58,7 +57,7 @@ describe('FollowUseCase unit tests', () => {
 
     const arrange = {
       userId: myUser.id.value,
-      userToFollow: userToFollow.id.value
+      userToFollow: userToFollow.id.value,
     }
 
     await expect(usecase.execute(arrange)).rejects.toThrow(UserNotFoundError)
@@ -72,7 +71,9 @@ describe('FollowUseCase unit tests', () => {
       userToFollow: myUser.id.value,
     }
 
-    await expect(usecase.execute(arrange)).rejects.toThrow(CyclicFollowOperationError)
+    await expect(usecase.execute(arrange)).rejects.toThrow(
+      CyclicFollowOperationError,
+    )
   })
 
   it('should throw error it is trying to follow a user twice', async () => {
@@ -81,11 +82,13 @@ describe('FollowUseCase unit tests', () => {
 
     const arrange = {
       userId: myUser.id.value,
-      userToFollow: userToFollow.id.value
+      userToFollow: userToFollow.id.value,
     }
 
     await usecase.execute(arrange)
 
-    await expect(usecase.execute(arrange)).rejects.toThrow(DuplicateFollowingError)
+    await expect(usecase.execute(arrange)).rejects.toThrow(
+      DuplicateFollowingError,
+    )
   })
 })

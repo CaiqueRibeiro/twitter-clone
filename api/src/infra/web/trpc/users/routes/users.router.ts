@@ -15,7 +15,9 @@ export const usersRouter = router({
     )
     .mutation(async opts => {
       const { input } = opts
-      const result = await usersController.follow(input as Required<typeof input>)
+      const result = await usersController.follow(
+        input as Required<typeof input>,
+      )
       return result
-    })
+    }),
 })

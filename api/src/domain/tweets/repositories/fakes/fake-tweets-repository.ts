@@ -58,6 +58,7 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
   }
 
   reply(reply: Reply): Promise<void> {
+    console.log(reply)
     throw new Error('Method not implemented.')
   }
 }

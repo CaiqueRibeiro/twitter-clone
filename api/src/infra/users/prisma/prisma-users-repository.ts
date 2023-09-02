@@ -52,21 +52,20 @@ class PrismaUsersRepository implements UsersRepositoryInterface {
     await prisma.follower.create({
       data: {
         follower_id: userId,
-        followee_id: userToFollow
-      }
+        followee_id: userToFollow,
+      },
     })
   }
 
   async getFollowers(user: User): Promise<User[]> {
     const raw = await prisma.follower.findMany({
       select: {
-        follower: true
+        follower: true,
       },
       where: {
-        followee_id: user.id.value
-      }
+        followee_id: user.id.value,
+      },
     })
-
 
     const users = raw.map(item => UserMapper.toEntity(item.follower))
 
