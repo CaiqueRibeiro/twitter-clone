@@ -7,6 +7,7 @@ import { expressHandler } from 'trpc-playground/handlers/express'
 import cors from 'cors'
 import { createContext } from './trpc/trpc'
 import { appRouter } from './trpc/routes'
+import { mainRestRouter } from './rest'
 
 const runApp = async () => {
   dotenv.config()
@@ -36,6 +37,8 @@ const runApp = async () => {
       router: appRouter,
     }),
   )
+
+  app.use(mainRestRouter)
 
   const port: number = Number(process.env.PORT) || 3333
 

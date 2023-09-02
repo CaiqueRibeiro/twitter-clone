@@ -1,3 +1,7 @@
+export interface UploadImageProps {
+  image: Buffer
+}
+
 export default interface UploadImageServiceInterface {
-  upload(image: Buffer): Promise<string>
+  upload(input: UploadImageProps): Promise<string>
 }

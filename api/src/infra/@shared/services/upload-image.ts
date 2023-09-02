@@ -1,11 +1,27 @@
-import UploadImageServiceInterface from "@application/@shared/services/upload-image.interface";
+import UploadImageServiceInterface, { UploadImageProps } from "@application/@shared/services/upload-image.interface";
 import StorageProviderInterface from "../providers/image-storage";
+import { inject, injectable } from "tsyringe";
+import { randomUUID } from "crypto";
 
-class UploadImage implements UploadImageServiceInterface {
-  constructor(private imageStorageProvider: StorageProviderInterface) {}
-  upload(image: Buffer): Promise<string> {
-    throw new Error("Method not implemented.");
+@injectable()
+class UploadImageService implements UploadImageServiceInterface {
+  constructor(
+    @inject('StorageProviderInterface')
+    private storageProvider: StorageProviderInterface
+    ) {}
+
+  async upload(input: UploadImageProps): Promise<string> {
+    const { image } = input
+
+    const imageName = `avatar-${randomUUID()}.jpg`
+
+    const imageLink = await this.storageProvider.uploadImage({
+      name: imageName,
+      file: image
+    })
+
+    return imageLink
   }
 }
 
-export { UploadImage }
+export { UploadImageService }
