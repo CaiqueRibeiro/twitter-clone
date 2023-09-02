@@ -24,6 +24,10 @@ class UploadImageService implements UploadImageServiceInterface {
 
     return imageLink
   }
+
+  async delete(imageUrl: string): Promise<void> {
+    await this.storageProvider.deleteImage(imageUrl)
+  }
 }
 
 export { UploadImageService }

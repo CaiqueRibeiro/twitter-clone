@@ -5,4 +5,5 @@ export interface ImageProps {
 
 export default interface StorageProviderInterface {
   uploadImage(image: ImageProps): Promise<string>
+  deleteImage(imageUrl: string): Promise<void>
 }

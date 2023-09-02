@@ -34,6 +34,15 @@ class S3StorageProvider implements StorageProviderInterface {
 
     return uploadedmage.Location
   }
+
+  async deleteImage(imageUrl: string): Promise<void> {
+    await this.s3
+      .deleteObject({
+        Bucket: process.env.PROFILE_BUCKET_NAME,
+        Key: imageUrl,
+      })
+      .promise()
+  }
 }
 
 export { S3StorageProvider }
