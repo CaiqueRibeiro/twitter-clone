@@ -28,7 +28,7 @@ In this project you'll be able to login to your profile, post a new Tweet and se
 ### Features
 - [x] Register
 - [x] Login
-- [ ] Change profile photo
+- [x] Change profile photo
 - [x] Follow other profiles
 - [x] Post a tweet
 - [x] Like a tweet

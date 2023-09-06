@@ -1,4 +1,5 @@
 import { initTRPC, inferAsyncReturnType, TRPCError } from '@trpc/server'
+import superjson from 'superjson'
 import * as trpcExpress from '@trpc/server/adapters/express'
 
 export const getAccessToken = async ({
@@ -47,7 +48,9 @@ export const createContext = ({
 
 export const t = initTRPC
   .context<inferAsyncReturnType<typeof createContext>>()
-  .create()
+  .create({
+    transformer: superjson
+  })
 export const router = t.router
 export const middleware = t.middleware
 export const publicProcedure = t.procedure
