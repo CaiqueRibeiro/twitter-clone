@@ -1,7 +1,9 @@
+'use client'
+
 import Feed from "@/components/Feed";
 import Trendsbar from "@/components/Trendsbar";
 
-export default function Home() {
+function FirstPage() {
   return (
     <div className="flex-1 flex gap-7">
       <Feed />
@@ -9,3 +11,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default FirstPage;

@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 import Image from "next/image"
 import { Image as ImageIcon, LayoutList, Smile, CalendarClock, MapPin, MoreHorizontalIcon } from "lucide-react"
+import { trpc } from '../../utils/trpc';
 
 interface TweetBoxProps {
   children: ReactNode
@@ -64,7 +65,7 @@ function TweetInput() {
   )
 }
 
-function PublishedTweet() {
+function PublishedTweet({ item }: any) {
   return (
     <TweetBox>
       <div className="flex flex-col flex-1">
@@ -86,7 +87,7 @@ function PublishedTweet() {
 
             <div>
               <span className="font-light">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam faucibus et ex a accumsan. Praesent non lorem sed purus pharetra luctus. Proin eget sagittis ipsum.
+                {item.content}
               </span>
             </div>
           </div>
@@ -125,6 +126,8 @@ function PublishedTweet() {
 }
 
 export default function Feed() {
+  const { data } = trpc.tweet.getUsersFeed.useQuery({ followerId: '8146eea1-3430-4f22-ac3b-9a72a09d891e' });
+
   return (
     <div className="flex flex-1 flex-col justify-start border-x border-zinc-800 overflow-x-auto">
       <div className="sticky top-0 bg-black/[.6] backdrop-blur-md flex flex-col border-b-2 border-zinc-800 pt-3">
@@ -148,20 +151,9 @@ export default function Feed() {
             <span className="text-md text-sky-500">Show 70 Tweets</span>
           </div>
         </TweetBox>
-
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-        <PublishedTweet />
-
+        {
+          data && data.feed.tweets.map(item => (<PublishedTweet item={item} />))
+        }
       </div>
     </div>
   )
