@@ -85,7 +85,7 @@ class User extends AggregateRoot {
 
   toJSON() {
     return {
-      id: this._props.id,
+      id: this._props.id.value,
       email: this._props.email,
       username: this._props.username,
       profileImage: this._props.profileImage,

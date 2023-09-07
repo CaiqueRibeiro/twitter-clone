@@ -3,10 +3,12 @@ import { TweetId } from '../value-objects/tweet-id'
 import { UserId } from '@domain/users/value-objects/user-id'
 import NotificationError from '@domain/@shared/notification/notification-error'
 import TweetValidatorFactory from '../factories/validators/tweet-validator.factory'
+import { User } from '@domain/users/entities/user'
 
 interface TweetProps {
   id: TweetId
   authorId: UserId
+  author?: User
   content: string
   isActive: boolean
   createdAt: Date
@@ -17,6 +19,7 @@ interface TweetProps {
 interface TweetConstructorProps {
   id?: TweetId | string
   authorId: UserId
+  author?: User
   content: string
   isActive?: boolean
   createdAt?: string
@@ -38,6 +41,8 @@ class Tweet extends AggregateRoot {
     this._id = this._props.id // to validate with equals()
 
     this._props.authorId = props.authorId
+
+    this._props.author = props.author
 
     this._props.content = props.content
     this._props.createdAt = props.createdAt
@@ -72,6 +77,10 @@ class Tweet extends AggregateRoot {
     return this._props.authorId
   }
 
+  get author() {
+    return this._props.author
+  }
+
   get content() {
     return this._props.content
   }
@@ -104,6 +113,7 @@ class Tweet extends AggregateRoot {
     const jsonResponse = {
       id: this._props.id.value,
       authorId: this._props.authorId.value,
+      author: this._props.author ? this._props.author.toJSON() : undefined,
       content: this._props.content,
       isActive: this._props.isActive,
       createdAt: this._props.createdAt.toISOString(),

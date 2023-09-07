@@ -88,7 +88,11 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
       include: {
         feed_tweets: {
           include: {
-            tweet: true,
+            tweet: {
+              include: {
+                user: true
+              }
+            },
           },
         },
       },

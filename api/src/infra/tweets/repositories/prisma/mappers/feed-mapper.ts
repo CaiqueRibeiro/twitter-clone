@@ -1,13 +1,15 @@
 import { Feed } from '@domain/tweets/entities/feed'
 import { UserId } from '@domain/users/value-objects/user-id'
-import { Tweet as PrismaTweet, Feed as PrismaFeed } from '@prisma/client'
+import { Tweet as PrismaTweet, Feed as PrismaFeed, User } from '@prisma/client'
 import { TweetMapper } from './tweet-mapper'
 
 type FullFeedPrismaProps = PrismaFeed & {
   feed_tweets: {
     tweet_id: string
     feed_id: string
-    tweet: PrismaTweet
+    tweet: PrismaTweet & {
+      user: User
+    }
   }[]
 }
 
@@ -17,7 +19,7 @@ class FeedMapper {
       id: input.id,
       userId: new UserId(input.user_id),
       tweets: input.feed_tweets.map(feedTweet => {
-        const tweet = TweetMapper.toEntity(feedTweet.tweet)
+        const tweet = TweetMapper.toEntityWithAuthor(feedTweet.tweet)
         return tweet
       }),
     })
