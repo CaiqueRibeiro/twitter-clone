@@ -9,7 +9,7 @@ const usersController = new UsersController()
 export const usersRouter = router({
   getUserData: authorizedProcedure
   .input(z.object({ userId: z.string().optional() }))
-  .mutation(async ({ input, ctx }) => {
+  .query(async ({ input, ctx }) => {
     const { user_id: loggedUserId } = ctx
     if (!loggedUserId) throw new TRPCError({ code: 'UNAUTHORIZED' })
     const { userId } = input
