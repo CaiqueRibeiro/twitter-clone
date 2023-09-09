@@ -1,7 +1,6 @@
 
 'use client'
 import { Twitter } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 import { trpc } from '@/utils/trpc'
 import { AuthContext } from '@/contexts/AuthContext'
