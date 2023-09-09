@@ -14,17 +14,12 @@ export const usersRouter = router({
     return result
   }),
   follow: authorizedProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        userToFollow: z.string(),
-      }),
-    )
+    .input(z.object({ userToFollow: z.string() }))
     .mutation(async opts => {
-      const { input } = opts
-      const result = await usersController.follow(
-        input as Required<typeof input>,
-      )
+      const { input, ctx } = opts
+      const { user_id: userId } = ctx
+      if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' })
+      const result = await usersController.follow({ ...input, userId })
       return result
     }),
 })
