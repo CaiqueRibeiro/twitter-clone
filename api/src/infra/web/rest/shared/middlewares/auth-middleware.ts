@@ -11,7 +11,7 @@ const AuthMiddleware = () => {
 
     try {
       const token = authorization.replace('Bearer ', '')
-      const { sub } = jwt.verify(token, process.env.JWT_SECRET)
+      const { sub } = jwt.verify(token, process.env.JWT_SECRET as string)
 
       request.headers.user_id = sub as string
 

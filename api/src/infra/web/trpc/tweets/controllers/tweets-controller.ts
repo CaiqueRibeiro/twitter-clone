@@ -29,7 +29,6 @@ export class TweetsController {
       const tweets = await usecase.execute({ followerId })
       return tweets
     } catch (error) {
-      console.log(error)
       return { message: 'Error while trying to list your tweets' }
     }
   }

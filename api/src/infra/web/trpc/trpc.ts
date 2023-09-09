@@ -7,7 +7,7 @@ export const getAccessToken = async ({
   res,
 }: trpcExpress.CreateExpressContextOptions) => {
   try {
-    let access_token: string
+    let access_token: string | undefined
 
     if (
       req.headers.authorization &&
@@ -21,7 +21,7 @@ export const getAccessToken = async ({
     const notAuthenticated = {
       req,
       res,
-      token: null as string,
+      token: '',
     }
 
     if (!access_token) {

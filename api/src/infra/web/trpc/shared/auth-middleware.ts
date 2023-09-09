@@ -8,9 +8,9 @@ const isLoggedMiddleware = middleware(async ({ ctx, next }) => {
   }
 
   try {
-    const userId = jwt.verify(ctx.token, process.env.JWT_SECRET)
+    const { sub } = jwt.verify(ctx.token,  process.env.JWT_SECRET as string)
     return next({
-      ctx: { userId },
+      ctx: { user_id: sub as string | undefined },
     })
   } catch (error) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })

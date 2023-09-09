@@ -20,7 +20,6 @@ class UploadAPhotoUseCase {
     photo,
   }: UploadAPhotoUseCaseInput): Promise<UploadAPhotoUseCaseOutput> {
     const imageUrl = await this.uploadImageService.upload({ image: photo })
-    console.log(imageUrl)
     return { imageUrl }
   }
 }

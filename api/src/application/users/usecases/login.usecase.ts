@@ -4,6 +4,7 @@ import { ProfilesRepositoryInterface } from '@domain/users/repositories/profiles
 import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.interface'
 import { injectable, inject } from 'tsyringe'
 import jwt from 'jsonwebtoken'
+import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
 
 interface LoginUseCaseInput {
   email: string
@@ -38,7 +39,9 @@ class LoginUseCase {
 
     const user = await this.usersRepository.findByEmail(email)
 
-    const token = jwt.sign({}, process.env.JWT_SECRET, {
+    if(!user) throw new UserNotFoundError()
+
+    const token = jwt.sign({}, process.env.JWT_SECRET as string, {
       expiresIn: '24h',
       subject: user.id.value,
     })
