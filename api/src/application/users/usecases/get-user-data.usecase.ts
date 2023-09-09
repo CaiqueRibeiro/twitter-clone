@@ -1,5 +1,3 @@
-import { CyclicFollowOperationError } from '@domain/users/errors/cyclic-follow-operation.error'
-import { DuplicateFollowingError } from '@domain/users/errors/duplicate-following.error'
 import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
 import { UsersRepositoryInterface } from '@domain/users/repositories/users-repository.interface'
 import { injectable, inject } from 'tsyringe'
@@ -22,7 +20,7 @@ class GetUserDataUseCase {
   constructor(
     @inject('UsersRepositoryInterface')
     private usersRepository: UsersRepositoryInterface,
-  ) { }
+  ) {}
 
   public async execute({
     userId,

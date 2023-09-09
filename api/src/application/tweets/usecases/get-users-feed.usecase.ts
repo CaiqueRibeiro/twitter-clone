@@ -23,7 +23,7 @@ class GetUsersFeedUseCase {
     followerId,
   }: GetUsersFeedUseCaseInput): Promise<GetUsersFeedUseCaseOutput> {
     const feed = await this.tweetsRepository.findFeedByFollowerId(followerId)
-    if(!feed) throw new FeedNotFoundError
+    if (!feed) throw new FeedNotFoundError()
     return { feed: feed.toJSON() }
   }
 }

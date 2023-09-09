@@ -49,7 +49,7 @@ export const createContext = ({
 export const t = initTRPC
   .context<inferAsyncReturnType<typeof createContext>>()
   .create({
-    transformer: superjson
+    transformer: superjson,
   })
 export const router = t.router
 export const middleware = t.middleware

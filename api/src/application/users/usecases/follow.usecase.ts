@@ -30,9 +30,8 @@ class FollowUseCase {
     const userToBeFollowed = await this.usersRepository.findById(userToFollow)
     if (!userToBeFollowed) throw new UserNotFoundError()
 
-    const userFollowers = await this.usersRepository.getFollowers(
-      userToBeFollowed,
-    )
+    const userFollowers =
+      await this.usersRepository.getFollowers(userToBeFollowed)
 
     const isLoggedUserAlreadyFollowing = userFollowers.find(
       user => user.id.value === userId,

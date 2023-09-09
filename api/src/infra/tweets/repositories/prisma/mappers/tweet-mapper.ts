@@ -12,7 +12,6 @@ type FullTweetWithAuthorPrismaProps = PrismaTweet & {
   user: PrismaUser
 }
 
-
 class TweetMapper {
   public static toPrisma(tweet: Tweet) {
     const map = {
@@ -70,7 +69,9 @@ class TweetMapper {
     return tweet
   }
 
-  public static toEntityWithAuthor(input: FullTweetWithAuthorPrismaProps): Tweet {
+  public static toEntityWithAuthor(
+    input: FullTweetWithAuthorPrismaProps,
+  ): Tweet {
     let referredTweet: Tweet
 
     if (input.referred_tweet) {

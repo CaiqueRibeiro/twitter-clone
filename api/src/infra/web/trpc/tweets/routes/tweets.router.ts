@@ -20,18 +20,20 @@ export const tweetsRouter = router({
     .mutation(async opts => {
       const { input, ctx } = opts
       const { user_id } = ctx
-      if(!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
-      const result = await tweetsController.create({ ...input, authorId: user_id })
+      if (!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
+      const result = await tweetsController.create({
+        ...input,
+        authorId: user_id,
+      })
       return result
     }),
-  getUsersFeed: authorizedProcedure
-    .query(async opts => {
-      const { ctx } = opts
-      const { user_id } = ctx
-      if(!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
-      const result = await tweetsController.index({ followerId: user_id })
-      return result
-    }),
+  getUsersFeed: authorizedProcedure.query(async opts => {
+    const { ctx } = opts
+    const { user_id } = ctx
+    if (!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
+    const result = await tweetsController.index({ followerId: user_id })
+    return result
+  }),
   likeATweet: authorizedProcedure
     .input(
       z.object({
@@ -42,8 +44,8 @@ export const tweetsRouter = router({
     .mutation(async opts => {
       const { input, ctx } = opts
       const { user_id } = ctx
-      if(!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
-      const result = await likesController.create({ ...input, userId: user_id})
+      if (!user_id) throw new TRPCError({ code: 'UNAUTHORIZED' })
+      const result = await likesController.create({ ...input, userId: user_id })
       return result
     }),
 })

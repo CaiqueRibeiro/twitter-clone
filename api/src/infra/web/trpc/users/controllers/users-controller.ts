@@ -1,12 +1,19 @@
 import { container } from 'tsyringe'
-import { GetUserDataRequest, GetUserDataResponse, FollowRequest, FollowResponse } from './dtos/users-controller.dto'
+import {
+  GetUserDataRequest,
+  GetUserDataResponse,
+  FollowRequest,
+  FollowResponse,
+} from './dtos/users-controller.dto'
 import { FollowUseCase } from '@application/users/usecases/follow.usecase'
 import { GetUserDataUseCase } from '@application/users/usecases/get-user-data.usecase'
 import { UserNotFoundError } from '@domain/users/errors/user-not-found.error'
 import { CyclicFollowOperationError } from '@domain/users/errors/cyclic-follow-operation.error'
 
 export class UsersController {
-  public async getUserData(input: GetUserDataRequest): Promise<GetUserDataResponse> {
+  public async getUserData(
+    input: GetUserDataRequest,
+  ): Promise<GetUserDataResponse> {
     const { userId } = input
     try {
       const usecase = container.resolve(GetUserDataUseCase)

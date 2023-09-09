@@ -39,7 +39,7 @@ class LoginUseCase {
 
     const user = await this.usersRepository.findByEmail(email)
 
-    if(!user) throw new UserNotFoundError()
+    if (!user) throw new UserNotFoundError()
 
     const token = jwt.sign({}, process.env.JWT_SECRET as string, {
       expiresIn: '24h',
