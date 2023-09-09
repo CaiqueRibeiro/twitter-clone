@@ -1,9 +1,24 @@
 
+'use client'
 import { Twitter } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useContext, useEffect } from 'react'
+import { trpc } from '@/utils/trpc'
+import { AuthContext } from '@/contexts/AuthContext'
 import Menu from './Menu'
 import ProfileButton from './ProfileButton'
 
 export default function Sidebar() {
+  const { saveUserData } = useContext(AuthContext);
+
+  const { data, isLoading } = trpc.user.getUserData.useQuery({});
+
+  useEffect(() => {
+    if(!isLoading) {
+      saveUserData(data)
+    }
+  }, [data])
+
   return (
     <div className='w-72 flex flex-col justify-between pl-1 pr-2'>
       <div className='flex flex-col gap-1 items-start'>

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Twitter } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { trpc, setToken } from '../../utils/trpc';
+import { trpc, setToken } from '../../utils/trpc'
 
 function LogoContainer() {
   return (
@@ -14,7 +14,7 @@ function LogoContainer() {
 }
 
 function Login() {
-  const mutation = trpc.profile.login.useMutation({
+  const loginMutation = trpc.profile.login.useMutation({
     onSuccess: ({ token }) => {
       setToken(token);
     }
@@ -47,13 +47,11 @@ function Login() {
         hover:bg-sky-600
         duration-200'
           onClick={async () => {
-            await mutation.mutate({
+            await loginMutation.mutate({
               email: "ribeiro.caique95@gmail.com",
               password: "9558"
             })
-            push('/home', {
-              
-            });
+            push('/home');
           }}
         >
 

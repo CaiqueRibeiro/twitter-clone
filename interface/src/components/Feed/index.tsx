@@ -6,7 +6,7 @@ import { TweetInput } from "../TweetInput";
 
 
 export default function Feed() {
-  const { data } = trpc.tweet.getUsersFeed.useQuery({ followerId: '8146eea1-3430-4f22-ac3b-9a72a09d891e' });
+  const { data: usersFeed, isLoading } = trpc.tweet.getUsersFeed.useQuery();
 
   return (
     <div className="flex flex-1 flex-col justify-start border-x border-zinc-800 overflow-x-auto">
@@ -32,7 +32,7 @@ export default function Feed() {
           </div>
         </TweetBox>
         {
-          data && data.feed.tweets.map(tweet => (<PublishedTweet key={tweet.id} tweetInfos={tweet} />))
+          usersFeed && usersFeed.feed.tweets.map(tweet => (<PublishedTweet key={tweet.id} tweetInfos={tweet} />))
         }
       </div>
     </div>

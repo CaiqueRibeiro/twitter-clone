@@ -14,6 +14,10 @@ function getBaseUrl() {
 
 let token: string;
 
+export function getToken() {
+  return token
+}
+
 export function setToken(newToken: string) {
   localStorage.setItem('access_token', newToken);
   token = newToken;

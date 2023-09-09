@@ -1,7 +1,6 @@
 'use client'
-
 import Feed from "@/components/Feed";
-import Trendsbar from "@/components/Trendsbar";
+import Trendsbar from "@/components/Trendsbar"
 
 function FirstPage() {
   return (
