@@ -7,10 +7,13 @@ import { TRPCError } from '@trpc/server'
 const usersController = new UsersController()
 
 export const usersRouter = router({
-  getUserData: authorizedProcedure.mutation(async ({ ctx }) => {
-    const { user_id: userId } = ctx
-    if (!userId) throw new TRPCError({ code: 'UNAUTHORIZED' })
-    const result = await usersController.getUserData({ userId })
+  getUserData: authorizedProcedure
+  .input(z.object({ userId: z.string().optional() }))
+  .mutation(async ({ input, ctx }) => {
+    const { user_id: loggedUserId } = ctx
+    if (!loggedUserId) throw new TRPCError({ code: 'UNAUTHORIZED' })
+    const { userId } = input
+    const result = await usersController.getUserData({ userId: userId ?? loggedUserId })
     return result
   }),
   follow: authorizedProcedure
