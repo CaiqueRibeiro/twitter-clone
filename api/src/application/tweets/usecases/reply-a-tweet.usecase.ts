@@ -17,7 +17,7 @@ type ReplyATweetUseCaseOutput = void
 @injectable()
 class ReplyATweetUseCase {
   constructor(
-    @inject('TweetsRepositoryInterface')
+    @inject('UsersRepositoryInterface')
     private usersRepository: UsersRepositoryInterface,
     @inject('TweetsRepositoryInterface')
     private tweetsRepository: TweetsRepositoryInterface,

@@ -112,7 +112,7 @@ class PrismaTweetsRepository implements TweetsRepositoryInterface {
 
   async reply(reply: Reply): Promise<void> {
     const raw = ReplyMapper.toPrisma(reply)
-    await prisma.like.create({
+    await prisma.reply.create({
       data: { ...raw },
     })
   }

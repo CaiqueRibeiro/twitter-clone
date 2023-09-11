@@ -8,11 +8,13 @@ import { Reply } from '@domain/tweets/entities/reply'
 
 class FakeTweetsRepository implements TweetsRepositoryInterface {
   public tweets: Tweet[]
+  public replies: Reply[]
   public feeds: Feed[]
   public likes: Like[]
 
   constructor() {
     this.tweets = []
+    this.replies = []
     this.feeds = []
     this.likes = []
   }
@@ -57,8 +59,8 @@ class FakeTweetsRepository implements TweetsRepositoryInterface {
     this.likes.push(like)
   }
 
-  reply(reply: Reply): Promise<void> {
-    throw new Error(`Method not implemented. Reply: ${reply.toJSON()}`)
+  async reply(reply: Reply): Promise<void> {
+    this.replies.push(reply)
   }
 }
 
