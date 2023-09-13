@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Twitter } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { trpc, setToken } from '../../utils/trpc'
+import LoginInput from '@/components/LoginInput'
 
 function LogoContainer() {
   return (
@@ -15,12 +16,23 @@ function LogoContainer() {
 
 function Login() {
   const loginMutation = trpc.profile.login.useMutation({
-    onSuccess: ({ token }) => {
-      setToken(token);
+    onSuccess: ({ token, message }) => {
+      if (message) {
+        setMessage(message)
+      } else {
+        setMessage('')
+        setToken(token);
+        push('/home');
+      }
+    },
+    onError: (props) => {
+      alert('erro')
     }
   });
 
   const { push } = useRouter()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   return (
@@ -29,9 +41,19 @@ function Login() {
       <h2 className="font-bold text-5xl mb-8">This is not twitter</h2>
       <span className="text-xl">Post your messages. This is just a copy anyway.</span>
 
+      <LoginInput
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+
+      <p className="text-red-500 ml-3">{message}</p>
+
       <div>
         <button
           type='button'
+          disabled={!email || !password}
           className='
         flex
         items-center
@@ -45,19 +67,19 @@ function Login() {
         transition
         ease-in-out
         hover:bg-sky-600
-        duration-200'
+        duration-200
+        disabled:bg-slate-500
+        '
           onClick={async () => {
             await loginMutation.mutate({
-              email: "ribeiro.caique95@gmail.com",
-              password: "9558"
+              email,
+              password
             })
-            push('/home');
           }}
         >
 
           <span className='text-white text-xl'>Connect to Twitter</span>
         </button>
-        <p className="text-red-500 ml-3">{message}</p>
       </div>
     </div>
   )
