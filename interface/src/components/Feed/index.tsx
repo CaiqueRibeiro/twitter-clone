@@ -1,8 +1,22 @@
 import { trpc } from "../../utils/trpc"
-import { PublishedTweet } from "../PublishedTweets";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { PublishedTweet, PublishedTweetProps } from "../PublishedTweets";
 import { TweetBox } from "../TweetBox"
 import { TweetInput } from "../TweetInput";
 
+interface TweetProps {
+  id: string
+  author: {
+    id: string
+    email: string
+    username: string
+    profileImage: string
+  },
+  content: string
+  isActive: boolean,
+  createdAt: string
+  updatedAt: string
+}
 
 
 export default function Feed() {
@@ -32,7 +46,9 @@ export default function Feed() {
           </div>
         </TweetBox>
         {
-          usersFeed && usersFeed.feed.tweets.map(tweet => (<PublishedTweet key={tweet.id} tweetInfos={tweet} />))
+          isLoading ?
+            <LoadingSpinner />
+            : usersFeed.feed.tweets.map((tweet: TweetProps) => (<PublishedTweet key={tweet.id} tweetInfos={tweet} />))
         }
       </div>
     </div>

@@ -5,6 +5,7 @@ import { Twitter } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { trpc, setToken } from '../../utils/trpc'
 import LoginInput from '@/components/LoginInput'
+import { Token } from 'typescript'
 
 function LogoContainer() {
   return (
@@ -16,7 +17,7 @@ function LogoContainer() {
 
 function Login() {
   const loginMutation = trpc.profile.login.useMutation({
-    onSuccess: ({ token, message }) => {
+    onSuccess: ({ token, message }: { token: string, message: string }) => {
       if (message) {
         setMessage(message)
       } else {
@@ -25,7 +26,7 @@ function Login() {
         push('/home');
       }
     },
-    onError: (props) => {
+    onError: (props: any) => {
       alert('erro')
     }
   });

@@ -1,8 +1,11 @@
 import Image from "next/image"
-import { Image as ImageIcon, LayoutList, Smile, CalendarClock, MapPin, MoreHorizontalIcon } from "lucide-react"
-import { TweetBox } from "../TweetBox";
+import { MoreHorizontalIcon, MessageCircleIcon, Repeat2Icon, HeartIcon, BarChart3Icon, UploadIcon } from "lucide-react"
+import { TweetBox } from "../TweetBox"
+import { useState } from "react"
+import { trpc } from '../../utils/trpc'
 
-interface PublishedTweetProps {
+
+export interface PublishedTweetProps {
   tweetInfos: {
     id: string
     author: {
@@ -19,6 +22,28 @@ interface PublishedTweetProps {
 }
 
 export function PublishedTweet({ tweetInfos }: PublishedTweetProps) {
+  const [liked, setLiked] = useState(false)
+
+  const likeMutation = trpc.tweet.likeATweet.useMutation({
+    onSuccess: ({ message }: { message?: string}) => {
+        if(message) {
+          alert(message)
+        } else {
+          setLiked(state => !state)
+        }
+    },
+    onError: (props: any) => {
+      alert('error in liking tweet')
+    }
+  });
+
+  async function handleLike() {
+    await likeMutation.mutate({
+      tweetId: tweetInfos.id,
+      timestamp: new Date().toISOString()
+    })
+  }
+
   return (
     <TweetBox>
       <div className="flex flex-col flex-1">
@@ -47,29 +72,28 @@ export function PublishedTweet({ tweetInfos }: PublishedTweetProps) {
         </div>
 
         <div className="flex h-10 mt-4">
-          <div className="flex flex-1 justify-center items-center  gap-16">
-            <button>
-              <ImageIcon className="text-sky-500" size={18} />
+          <div className="flex flex-1 justify-between items-center gap-16 ml-8 px-3">
+            <button className="group rounded-full items-center flex justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+              <MessageCircleIcon className="text-sky-500" size={18} />
             </button>
 
-            <button>
-              <LayoutList className="text-sky-500" size={18} />
+            <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+              <Repeat2Icon className="text-sky-500" size={18} />
             </button>
 
-            <button>
-              <LayoutList className="text-sky-500" size={18} />
+            <button
+              className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200"
+              onClick={handleLike}
+            >
+              <HeartIcon className={`${liked ? "fill-sky-500 text-transparent" : "text-sky-500"}`} size={18} />
             </button>
 
-            <button>
-              <Smile className="text-sky-500" size={18} />
+            <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+              <BarChart3Icon className="text-sky-500" size={18} />
             </button>
 
-            <button>
-              <CalendarClock className="text-sky-500" size={18} />
-            </button>
-
-            <button>
-              <MapPin className="text-sky-500" size={18} />
+            <button className="group rounded-full flex items-center justify-center h-8 w-8 transition ease-in-out hover:bg-sky-700/[.3] duration-200">
+              <UploadIcon className="text-sky-500" size={18} />
             </button>
           </div>
         </div>
